@@ -2,12 +2,14 @@
 mod thread_example;
 mod usescope;
 mod thread_advanced;
+mod use_rc_arc;
 
 fn main() {
-    // 运行高级线程示例（包含多线程 push、只读、Box::leak 等）
-    thread_advanced::main();
+    // 运行 Rc 和 Arc 示例（演示引用计数、线程安全等）
+    use_rc_arc::main();
     
     // 如果想运行其他示例，取消下面的注释
+    // thread_advanced::main();
     // usescope::main();
     // thread_example::main();
 }

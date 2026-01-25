@@ -91,7 +91,7 @@ fn example3_multiple_read() {
     thread::scope(|s| {
         // 创建多个线程，每个线程读取不同的元素
         for i in 0..arr.len() {
-            s.spawn(|| {
+            s.spawn(move || {
                 println!("线程 {} 读取: arr[{}] = {}", i, i, arr[i]);
             });
         }
