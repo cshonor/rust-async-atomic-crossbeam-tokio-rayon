@@ -8,6 +8,6 @@ fn main() {
         println!("x: {}", x);
         println!("y: {}", y);
         println!("z: {}", z);
-    };
+    });
     f.join().unwrap();
 }
