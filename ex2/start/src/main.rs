@@ -1,6 +1,7 @@
 mod use_atomic;
 mod lazy_init;
 mod use_atomic_operations;
+mod id_allocator;
 
 fn main() {
     // 测试 Atomic 类型相关示例
@@ -22,4 +23,9 @@ fn main() {
     
     // 测试原子操作方法
     use_atomic_operations::main();
+    
+    println!("\n========== 测试 ID 分配器 ==========\n");
+    
+    // 测试 ID 分配器
+    id_allocator::main();
 }
