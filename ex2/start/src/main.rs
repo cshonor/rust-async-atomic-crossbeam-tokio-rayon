@@ -2,6 +2,7 @@ mod use_atomic;
 mod lazy_init;
 mod use_atomic_operations;
 mod id_allocator;
+mod use_seqcst;
 
 fn main() {
     // 测试 Atomic 类型相关示例
@@ -28,4 +29,9 @@ fn main() {
     
     // 测试 ID 分配器
     id_allocator::main();
+    
+    println!("\n========== 测试 SeqCst（顺序一致性）==========\n");
+    
+    // 测试 SeqCst
+    use_seqcst::main();
 }
