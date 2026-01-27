@@ -3,6 +3,7 @@ mod lazy_init;
 mod use_atomic_operations;
 mod id_allocator;
 mod use_seqcst;
+mod use_fence;
 
 fn main() {
     // 测试 Atomic 类型相关示例
@@ -34,4 +35,9 @@ fn main() {
     
     // 测试 SeqCst
     use_seqcst::main();
+    
+    println!("\n========== 测试栅栏（Fence）==========\n");
+    
+    // 测试栅栏
+    use_fence::main();
 }
