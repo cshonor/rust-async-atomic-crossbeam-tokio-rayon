@@ -1,5 +1,6 @@
 mod use_atomic;
 mod lazy_init;
+mod use_atomic_operations;
 
 fn main() {
     // 测试 Atomic 类型相关示例
@@ -16,4 +17,9 @@ fn main() {
     
     // 测试延迟初始化示例
     lazy_init::main();
+    
+    println!("\n========== 测试原子操作方法 ==========\n");
+    
+    // 测试原子操作方法
+    use_atomic_operations::main();
 }
