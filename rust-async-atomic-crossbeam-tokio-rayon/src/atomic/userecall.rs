@@ -9,7 +9,7 @@ fn fibonacci(n: u32) -> u32 {
     }
 }
 
-fn main() {
+pub fn main() {
     // 在线程里执行递归函数，返回结果给主线程。
     let handle = thread::spawn(|| fibonacci(10));
 

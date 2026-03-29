@@ -1,5 +1,6 @@
 use std::thread;
-fn main() {
+
+pub fn main() {
     println!("Hello, world!");
     let  t1= thread::spawn(f);
     let  t2= thread::spawn(f);

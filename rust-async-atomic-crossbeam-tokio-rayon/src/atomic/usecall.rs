@@ -5,7 +5,7 @@ fn greet(name: &str) {
     println!("Hello from {name} thread!");
 }
 
-fn main() {
+pub fn main() {
     // 直接把函数放到新线程里调用。
     let handle = thread::spawn(|| greet("child"));
 

@@ -1,6 +1,6 @@
 use std::thread;
 
-fn main() {
+pub fn main() {
     // 把字符串放到堆上并泄漏，得到 &'static str。
     let leaked: &'static str = {
         let message = String::from("Hello from a leaked Box!");

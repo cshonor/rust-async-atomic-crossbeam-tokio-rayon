@@ -1,6 +1,7 @@
 use std::thread;
-//用 闭包
-fn main() {
+
+/// 闭包捕获与 `move` 的简单线程示例。
+pub fn run() {
     let x = 1;
     let y = 2;
     let z = 3;

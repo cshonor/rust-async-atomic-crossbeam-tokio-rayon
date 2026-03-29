@@ -1,0 +1,12 @@
+[package]
+name = "rust-async-atomic-crossbeam-tokio-rayon"
+version = "0.1.0"
+edition = "2021"
+description = "Rust 并发 / 异步 / 原子操作学习与实践"
+repository = "https://github.com/cshonor/rust-async-atomic-crossbeam-tokio-rayon"
+
+[dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "sync", "time", "net"] }
+crossbeam-channel = "0.5"
+crossbeam-utils = "0.8"
+rayon = "1.10"
