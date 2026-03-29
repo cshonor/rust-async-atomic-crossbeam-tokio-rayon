@@ -16,11 +16,7 @@
 
 ## 如何运行
 
-Rust 工具链需已安装（`rustc`、`cargo`）。在项目子目录中执行：
-
-```bash
-cd rust-async-atomic-crossbeam-tokio-rayon
-```
+在**仓库根目录**（与 `Cargo.toml` 同级）执行：
 
 ```bash
 cargo build
@@ -41,11 +37,13 @@ cargo run -- <命令> [子命令]
 
 无参数时运行 `cargo run --` 会打印用法说明。
 
-## 目录结构（crate 内）
+## 目录结构
 
 ```
-rust-async-atomic-crossbeam-tokio-rayon/
+.
 ├── Cargo.toml
+├── Cargo.lock
+├── README.md
 ├── src/
 │   ├── main.rs           # 命令行入口
 │   ├── lib.rs
