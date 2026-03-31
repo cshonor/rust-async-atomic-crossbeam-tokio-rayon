@@ -14,6 +14,38 @@
 | 有界通道、`thread::scope` | `src/crossbeam/` | `crossbeam-channel` + `crossbeam-utils` |
 | 并行迭代器 | `src/rayon/` | `par_iter` 等 |
 
+`chapter_01` 编号索引：
+
+| 编号 | 模块（文件） |
+|------|--------------|
+| 01 | `move_closure.rs` |
+| 02 | `thread_advanced.rs` |
+| 03 | `thread_example.rs` |
+| 04 | `use_cell_refcell.rs` |
+| 05 | `use_condvar.rs` |
+| 06 | `use_mutex.rs` |
+| 07 | `use_mutex_guard_lifetime.rs` |
+| 08 | `use_rc_arc.rs` |
+| 09 | `use_send_sync.rs` |
+| 10 | `useboxleak.rs` |
+| 11 | `usecall.rs` |
+| 12 | `usejoin.rs` |
+| 13 | `userecall.rs` |
+| 14 | `usescope.rs` |
+| 15 | `usestatic.rs` |
+
+`chapter_02` 编号索引：
+
+| 编号 | 模块（文件） |
+|------|--------------|
+| 01 | `id_allocator.rs` |
+| 02 | `lazy_init.rs` |
+| 03 | `quick_demo.rs` |
+| 04 | `use_atomic.rs` |
+| 05 | `use_atomic_operations.rs` |
+| 06 | `use_fence.rs` |
+| 07 | `use_seqcst.rs` |
+
 ## 如何运行
 
 在**仓库根目录**（与 `Cargo.toml` 同级）执行：
