@@ -16,7 +16,7 @@ cargo run -- atomic
 cargo run -- atomic ex2
 ```
 
-> 说明：ex2 的执行顺序由 `src/atomic/mod.rs` 的 `run_extended()` 决定；每个文件里也通常有 `pub fn main()` 作为单文件入口。
+> 说明：ex2 的执行顺序由 `atomic/src/mod.rs` 的 `run_extended()` 决定；每个文件里也通常有 `pub fn main()` 作为单文件入口。
 
 ## 编号索引（文件名即主题）
 

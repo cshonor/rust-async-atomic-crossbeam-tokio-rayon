@@ -107,9 +107,9 @@ dependencies = [
 name = "rust-async-atomic-crossbeam-tokio-rayon"
 version = "0.1.0"
 dependencies = [
- "crossbeam-channel",
- "crossbeam-utils",
- "rayon",
+ "study_atomic",
+ "study_crossbeam",
+ "study_rayon",
  "tokio",
 ]
 
@@ -121,6 +121,25 @@ checksum = "3a766e1110788c36f4fa1c2b71b387a7815aa65f88ce0229841826633d93723e"
 dependencies = [
  "libc",
  "windows-sys",
+]
+
+[[package]]
+name = "study_atomic"
+version = "0.1.0"
+
+[[package]]
+name = "study_crossbeam"
+version = "0.1.0"
+dependencies = [
+ "crossbeam-channel",
+ "crossbeam-utils",
+]
+
+[[package]]
+name = "study_rayon"
+version = "0.1.0"
+dependencies = [
+ "rayon",
 ]
 
 [[package]]

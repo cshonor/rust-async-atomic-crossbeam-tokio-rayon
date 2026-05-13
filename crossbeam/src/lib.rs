@@ -1,6 +1,6 @@
 //! crossbeam-channel + crossbeam_utils::thread::scope
 //!
-//! 避免与 crate 名 `crossbeam` 同名冲突：依赖用 `crossbeam-channel` / `crossbeam-utils`。
+//! 避免与模块名 `crossbeam` 混淆：依赖 crate 仍为 `crossbeam-channel` / `crossbeam-utils`。
 
 use crossbeam_channel::bounded;
 use crossbeam_utils::thread::scope;

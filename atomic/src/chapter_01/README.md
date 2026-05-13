@@ -10,7 +10,7 @@
 cargo run -- atomic ex1
 ```
 
-> 说明：各个示例文件里通常都提供 `pub fn main()`；如果你想在 ex1 里切换默认演示入口，可以调整 `src/atomic/mod.rs` 里 `run_ex1_default()` 调用的目标。
+> 说明：各个示例文件里通常都提供 `pub fn main()`；如果你想在 ex1 里切换默认演示入口，可以调整 `atomic/src/mod.rs` 里 `run_ex1_default()` 调用的目标。
 
 ## 编号索引（文件名即主题）
 

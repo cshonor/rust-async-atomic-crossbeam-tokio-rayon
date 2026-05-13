@@ -8,11 +8,11 @@
 
 | 主题 | 代码位置 | 说明 |
 |------|----------|------|
-| 线程、`Mutex` / `Condvar`、`Arc` 等 | `src/atomic/chapter_01/` | 原 ex1 系列示例 |
-| `std::sync::atomic`、内存序、栅栏 | `src/atomic/chapter_02/` | 原 ex2 系列示例 |
+| 线程、`Mutex` / `Condvar`、`Arc` 等 | `atomic/src/chapter_01/`（`study_atomic`） | 原 ex1 系列示例 |
+| `std::sync::atomic`、内存序、栅栏 | `atomic/src/chapter_02/` | 原 ex2 系列示例 |
 | async / await、`tokio::spawn`、通道与异步锁 | `src/async_tokio/` | Tokio 运行时示例 |
-| 有界通道、`thread::scope` | `src/crossbeam/` | `crossbeam-channel` + `crossbeam-utils` |
-| 并行迭代器 | `src/rayon/` | `par_iter` 等 |
+| 有界通道、`thread::scope` | `crossbeam/src/lib.rs`（`study_crossbeam`） | `crossbeam-channel` + `crossbeam-utils` |
+| 并行迭代器 | `rayon/src/lib.rs`（`study_rayon`） | `par_iter` 等 |
 
 `chapter_01` 编号索引：
 
@@ -76,16 +76,23 @@ cargo run -- <命令> [子命令]
 ├── Cargo.toml
 ├── Cargo.lock
 ├── README.md
+├── atomic/                 # workspace：`study_atomic`
+│   ├── Cargo.toml
+│   └── src/
+│       ├── mod.rs
+│       ├── chapter_01/
+│       └── chapter_02/
+├── crossbeam/              # workspace：`study_crossbeam`
+│   ├── Cargo.toml
+│   └── src/lib.rs
+├── rayon/                  # workspace：`study_rayon`
+│   ├── Cargo.toml
+│   └── src/lib.rs
+├── async_tokio/            # 按章笔记与 demo（可选，非 crate）
 ├── src/
-│   ├── main.rs           # 命令行入口
+│   ├── main.rs             # 命令行入口
 │   ├── lib.rs
-│   ├── atomic/
-│   │   ├── chapter_01/   # 线程与同步
-│   │   ├── chapter_02/   # 原子与内存序
-│   │   └── mod.rs
-│   ├── async_tokio/
-│   ├── crossbeam/
-│   └── rayon/
+│   └── async_tokio/
 ```
 
 ## 许可证
