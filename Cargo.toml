@@ -14,3 +14,8 @@ study_atomic = { path = "atomic" }
 study_crossbeam = { path = "crossbeam" }
 study_rayon = { path = "rayon" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "sync", "time", "net"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
+
+[[example]]
+name = "ch01_reqwest_join"
+path = "examples/ch01_reqwest_join.rs"
