@@ -26,60 +26,60 @@ mockall = "0.13"
 
 [[example]]
 name = "ch01_reqwest_join"
-path = "examples/ch01_reqwest_join.rs"
+path = "async_tokio/ch01_async_intro/ch01_reqwest_join.rs"
 
 [[example]]
 name = "ch02_counter_future"
-path = "examples/ch02_counter_future.rs"
+path = "async_tokio/ch02_async_rust_core/ch02_counter_future.rs"
 
 [[example]]
 name = "ch03_join_macro_flume"
-path = "examples/ch03_join_macro_flume.rs"
+path = "async_tokio/ch03_custom_task_queue/ch03_join_macro_flume.rs"
 
 [[example]]
 name = "ch04_mio_poll_listener"
-path = "examples/ch04_mio_poll_listener.rs"
+path = "async_tokio/ch04_network_io_runtime/ch04_mio_poll_listener.rs"
 
 [[example]]
 name = "ch05_resume_state_machine"
-path = "examples/ch05_resume_state_machine.rs"
+path = "async_tokio/ch05_coroutines_generators/ch05_resume_state_machine.rs"
 
 [[example]]
 name = "ch06_callback"
-path = "examples/ch06_callback.rs"
+path = "async_tokio/ch06_reactive_async_streams/ch06_callback.rs"
 
 [[example]]
 name = "ch06_heater_display"
-path = "examples/ch06_heater_display.rs"
+path = "async_tokio/ch06_reactive_async_streams/ch06_heater_display.rs"
 
 [[example]]
 name = "ch07_local_pool_pinned"
-path = "examples/ch07_local_pool_pinned.rs"
+path = "async_tokio/ch07_tokio_graceful_shutdown/ch07_local_pool_pinned.rs"
 
 [[example]]
 name = "ch07_runtime_builder_hooks"
-path = "examples/ch07_runtime_builder_hooks.rs"
+path = "async_tokio/ch07_tokio_graceful_shutdown/ch07_runtime_builder_hooks.rs"
 
 [[example]]
 name = "ch07_ctrl_c_shutdown"
-path = "examples/ch07_ctrl_c_shutdown.rs"
+path = "async_tokio/ch07_tokio_graceful_shutdown/ch07_ctrl_c_shutdown.rs"
 
 [[example]]
 name = "ch08_actor_resp_channel"
-path = "examples/ch08_actor_resp_channel.rs"
+path = "async_tokio/ch08_actor_model/ch08_actor_resp_channel.rs"
 
 [[example]]
 name = "ch09_retry_backoff"
-path = "examples/ch09_retry_backoff.rs"
+path = "async_tokio/ch09_async_design_patterns/ch09_retry_backoff.rs"
 
 [[example]]
 name = "ch10_std_tcp_nonblocking"
-path = "examples/ch10_std_tcp_nonblocking.rs"
+path = "async_tokio/ch10_dependency_free_async_server/ch10_std_tcp_nonblocking.rs"
 
 [[example]]
 name = "ch10_noop_waker_block_on"
-path = "examples/ch10_noop_waker_block_on.rs"
+path = "async_tokio/ch10_dependency_free_async_server/ch10_noop_waker_block_on.rs"
 
 [[example]]
 name = "ch11_timeout_deadlock_probe"
-path = "examples/ch11_timeout_deadlock_probe.rs"
+path = "async_tokio/ch11_async_testing_debugging/ch11_timeout_deadlock_probe.rs"
