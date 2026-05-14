@@ -1,6 +1,11 @@
 //! 原子与并发基础：`chapter_01` 线程与同步原语，`chapter_02` 原子与内存序。
+//!
+//! 源码与《Rust Atomics and Locks》学习文件夹同层：见 `Chapter-01-Rust-Concurrency-Basics/`、`Chapter-02-Atomics/`。
 
+#[path = "../Chapter-01-Rust-Concurrency-Basics/mod.rs"]
 pub mod chapter_01;
+
+#[path = "../Chapter-02-Atomics/mod.rs"]
 pub mod chapter_02;
 
 /// 简短概览：与原先 `atomic::demo` 行为一致。

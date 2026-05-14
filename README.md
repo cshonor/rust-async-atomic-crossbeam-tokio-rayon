@@ -8,8 +8,8 @@
 
 | 主题 | 代码位置 | 说明 |
 |------|----------|------|
-| 线程、`Mutex` / `Condvar`、`Arc` 等 | `atomic/src/chapter_01/`（`study_atomic`） | 原 ex1 系列示例 |
-| `std::sync::atomic`、内存序、栅栏 | `atomic/src/chapter_02/` | 原 ex2 系列示例 |
+| 线程、`Mutex` / `Condvar`、`Arc` 等 | `atomic/Chapter-01-Rust-Concurrency-Basics/`（`study_atomic::chapter_01`） | 原 ex1 系列示例 |
+| `std::sync::atomic`、内存序、栅栏 | `atomic/Chapter-02-Atomics/` | 原 ex2 系列示例 |
 | async / await、`tokio::spawn`、通道与异步锁 | `src/async_tokio/` | Tokio 运行时示例 |
 | 有界通道、`thread::scope` | `crossbeam/src/lib.rs`（`study_crossbeam`） | `crossbeam-channel` + `crossbeam-utils` |
 | 并行迭代器 | `rayon/src/lib.rs`（`study_rayon`） | `par_iter` 等 |
@@ -78,10 +78,12 @@ cargo run -- <命令> [子命令]
 ├── README.md
 ├── atomic/                 # workspace：`study_atomic`
 │   ├── Cargo.toml
-│   └── src/
-│       ├── mod.rs
-│       ├── chapter_01/
-│       └── chapter_02/
+│   ├── README-学习区.md
+│   ├── src/
+│   │   └── mod.rs          # #[path] 引入各 Chapter 下 mod.rs
+│   ├── Chapter-01-Rust-Concurrency-Basics/   # 第 1 章源码 + note.md
+│   ├── Chapter-02-Atomics/
+│   └── Chapter-03-… ~ Chapter-10-…/          # 笔记占位（英文文件夹名）
 ├── crossbeam/              # workspace：`study_crossbeam`
 │   ├── Cargo.toml
 │   └── src/lib.rs
