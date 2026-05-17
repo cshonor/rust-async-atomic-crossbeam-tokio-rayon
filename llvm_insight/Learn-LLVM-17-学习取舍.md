@@ -2,6 +2,8 @@
 
 全书 4 大板块 13 章。**目标**：服务 **Rust 底层、并发、性能**；**不必**全书通读、**不必**写 C++ 编译器，其余可大胆跳过。
 
+**与仓库文件夹对齐**：`part01`–`part04` 各章目录、`ir_samples/` 说明见 **[README.md](./README.md)** 顶部目录树；精读/浏览/跳过与下表一致。
+
 > 说明：书名是 LLVM 17；你本机 **rustc 自带的 LLVM 版本**可能不同，读概念与 IR 形态即可，不必与书版本逐字对齐。
 
 ---
@@ -110,7 +112,8 @@
 
 ---
 
-## 与本目录 `llvm_insight` crate 的配合
+## 与 `llvm_insight/` 目录结构的配合
 
-- 精读第 4、7 章时，多用本目录 **`cargo rustc -p llvm_insight -- --emit=llvm-ir`** 对照 `src/lib.rs` 里的原子与栅栏。  
-- 第 5 章可在 `atomic/` 或主工程里**抄一小段**真实类型到 `llvm_insight`，再单独导出 IR，避免噪声。
+- **精读**第 4、7 章：改根目录 **`llvm_insight/src/lib.rs`**（包名 **`llvm_insight_lab`**），用 `cargo rustc --manifest-path llvm_insight/Cargo.toml -p llvm_insight_lab -- --emit=llvm-ir`（或 workspace 下 `-p llvm_insight_lab`）导出 IR；笔记写在 **`part02_src_to_machine/chapter04_ir_basic/notes/`**、**`chapter07_ir_optimize/notes/`**。  
+- **精读**第 5 章：类型 lowering 笔记在 **`chapter05_ir_advanced_type/notes/`**；`.ll` 片段统一归档到 **`ir_samples/atomic_ir/`** 等（见 **`ir_samples/README.md`**）。  
+- 全书目录与 **精读/浏览/跳过** 的文件夹对照见 **`llvm_insight/README.md`** 顶部树状图。
