@@ -5,6 +5,12 @@
 - **不放** LLVM 工程源码、不要求写 C++。
 - **只放**：从 Rust 侧导出 **LLVM IR**（`.ll`）的样例流程、笔记链接、以及本 crate 里用于「生成对照 IR」的小函数。
 
+## 《Learn LLVM 17》在仓库里的读法（章节目录 + 取舍）
+
+不必啃全书、不必写 C++ 编译器。仓库内有一份**与本书 13 章对齐的精读/跳过清单**，并串到 `atomic` → crossbeam/rayon → `async_tokio` → 网络 → 再 LLVM 的顺序：
+
+- **[Learn-LLVM-17-学习取舍.md](./Learn-LLVM-17-学习取舍.md)**
+
 ## 为什么单独一级目录
 
 | 放在这里的好处 |
@@ -12,28 +18,17 @@
 | 原子 / 无锁 / `async` 最终都经 rustc → LLVM → 机器码；IR 是「编译器实际看到的形状」。 |
 | 与 `atomic`（原理与 API）、`async_tokio`（运行时与书）、网络目录（Socket 与协议）**边界清晰**，互不掺目录。 |
 
-## 与 workspace 的关系
+## 与 Cargo workspace 的关系
 
-根目录 **`[workspace].members`** 已包含 **`llvm_insight`**，便于：
-
-```bash
-cargo build -p llvm_insight
-cargo check --workspace
-```
-
-**未**把 `async_tokio/`、`rust_network_programming/` 加进 members：它们不是独立 `Cargo.toml` 包，强行加入会导致 workspace 解析失败。异步示例仍在**根 package** 的 `[[example]]` 里。
-
-## 导出 LLVM IR（第一个可复现步骤）
-
-在**仓库根目录**执行（任选其一）：
+- **若仓库根存在** `Cargo.toml` 且 **`[workspace].members`** 包含 **`llvm_insight`**：在仓库根执行 `cargo build -p llvm_insight`、`cargo rustc -p llvm_insight -- --emit=llvm-ir` 即可。  
+- **若本目录为独立 crate**（根无 workspace 或未列入 members）：在**仓库根**用 manifest 调用：
 
 ```bash
-# 生成 LLVM IR（debug，便于阅读）
-cargo rustc -p llvm_insight -- --emit=llvm-ir
-
-# 或 release + IR（看优化后差异）
-cargo rustc -p llvm_insight --release -- --emit=llvm-ir
+cargo build --manifest-path llvm_insight/Cargo.toml
+cargo rustc --manifest-path llvm_insight/Cargo.toml -- --emit=llvm-ir
 ```
+
+`async_tokio/`、`rust_network_programming/` 通常不是独立包；Tokio 示例若在根 package 的 `[[example]]` 里，仍在根目录 `cargo run --example …`。
 
 生成物通常在：
 
@@ -58,6 +53,6 @@ Windows 下路径相同，用资源管理器或 `dir target\debug\deps\llvm_insi
 
 ## 学习顺序（与总仓库一致）
 
-1. 仍以 **Rust 并发 / 同步网络 / Tokio** 为主线。  
+1. 仍以 **Rust 并发 / 同步网络 / Tokio** 为主线（详见 [Learn-LLVM-17-学习取舍.md](./Learn-LLVM-17-学习取舍.md) 末尾「与当前仓库学习路线」）。  
 2. **穿插**：每啃透一个点，在本 crate 写最小复现函数 → 导出 IR → 归档。  
-3. LLVM 作**透视工具**，不必先于应用层网络学完。
+3. LLVM 作**透视工具**；《Learn LLVM 17》按取舍文档**靠后精读**第 2、4、5、7、10 章即可。
