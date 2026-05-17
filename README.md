@@ -12,6 +12,7 @@
 | `std::sync::atomic`、内存序、栅栏 | `atomic/Chapter-02-Atomics/` | 原 ex2 系列示例 |
 | async / await、`tokio::spawn`、通道与异步锁 | `src/async_tokio/`、`async_tokio/` | Tokio 运行时示例与按章笔记 |
 | 《Network Programming with Rust》路线（网络分层 → `std` Socket → Tokio 等） | `rust_network_programming/` | 与并发 crate **并列**的学习区；各 `stage*/README.md` 为模板 |
+| LLVM IR 对照（原子 / 栅栏等导出 `.ll`） | `llvm_insight/`（workspace 成员 `llvm_insight`） | 见该目录 `README.md`：`cargo rustc -p llvm_insight -- --emit=llvm-ir` |
 | 有界通道、`thread::scope` | `crossbeam/src/lib.rs`（`study_crossbeam`） | `crossbeam-channel` + `crossbeam-utils` |
 | 并行迭代器 | `rayon/src/lib.rs`（`study_rayon`） | `par_iter` 等 |
 
@@ -92,7 +93,7 @@ cargo run -- <命令> [子命令]
 │   ├── Cargo.toml
 │   └── src/lib.rs
 ├── async_tokio/            # 按章笔记与 demo（可选，非 crate）
-├── rust_network_programming/  # 《Network Programming with Rust》分阶段 README（非 crate）
+├── llvm_insight/           # workspace：LLVM IR 对照用小 crate（`cargo build -p llvm_insight`）
 ├── src/
 │   ├── main.rs             # 命令行入口
 │   ├── lib.rs

@@ -1,0 +1,9 @@
+[package]
+name = "llvm_insight"
+version = "0.1.0"
+edition = "2021"
+description = "LLVM IR 对照：从 Rust 原子/内存序等导出 IR 归档（不学 LLVM C++ 源码）"
+publish = false
+
+[lib]
+path = "src/lib.rs"

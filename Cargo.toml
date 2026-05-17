@@ -1,5 +1,5 @@
 [workspace]
-members = [".", "atomic", "crossbeam", "rayon"]
+members = [".", "atomic", "crossbeam", "rayon", "llvm_insight"]
 resolver = "2"
 
 [package]
