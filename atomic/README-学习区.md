@@ -7,8 +7,8 @@
 | 位置 | 用途 |
 |------|------|
 | **`src/mod.rs`** | `study_atomic` 库入口：用 **`#[path = "../Chapter-01-…/mod.rs"]`** 等方式，把第 1、2 章文件夹挂成 **`chapter_01` / `chapter_02`** 模块。 |
-| **`Chapter-01-Rust-Concurrency-Basics/`** | 第 1 章：笔记 **`note.md`** + 全部 `*.rs`（含 `mod.rs`、`README.md`）。 |
-| **`Chapter-02-Atomics/`** | 第 2 章：笔记 **`note.md`** + 全部 `*.rs`。 |
+| **`Chapter-01-Rust-Concurrency-Basics/`** | 第 1 章：**`本章学习笔记.md`**（完整梳理）+ **`note.md`**（索引）+ 全部 `*.rs`。 |
+| **`Chapter-02-Atomics/`** | 第 2 章：**`本章学习笔记.md`**（原子 API + 内存模型/DR 理论）+ **`note.md`** + 全部 `*.rs`。 |
 | **`Chapter-03`～`Chapter-10`** | 目前仅 **`note.md`** 占位；后续可按书补代码或再挂 `#[path]`。 |
 
 构建：`cargo build -p study_atomic` 或根目录 `cargo run -- atomic`。

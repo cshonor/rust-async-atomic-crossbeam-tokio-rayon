@@ -2,6 +2,8 @@
 
 本章聚焦 **线程基础** 与 **同步原语**：`JoinHandle`、`thread::scope`、`Rc/Arc`、`Mutex/Condvar`、`Cell/RefCell`、以及 `Send/Sync` 的边界。
 
+**完整梳理（考试/面试向）**：[本章学习笔记.md](./本章学习笔记.md)
+
 ## 如何运行
 
 - 运行本章默认入口（原 ex1，较长演示，当前默认是条件变量示例）：
