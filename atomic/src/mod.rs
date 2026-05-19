@@ -8,6 +8,9 @@ pub mod chapter_01;
 #[path = "../Chapter-02-Atomics/mod.rs"]
 pub mod chapter_02;
 
+#[path = "../Chapter-04-Spin-Locks/mod.rs"]
+pub mod chapter_04;
+
 /// 简短概览：与原先 `atomic::demo` 行为一致。
 pub fn demo() {
     chapter_02::quick_demo::demo();

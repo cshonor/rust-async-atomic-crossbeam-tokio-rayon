@@ -19,8 +19,8 @@
 |----------|----------------|------|
 | `Chapter-01-Rust-Concurrency-Basics` | Rust 并发基础 | 本文件夹内 `*.rs` |
 | `Chapter-02-Atomics` | 原子操作 | 本文件夹内 `*.rs` |
-| `Chapter-03-Memory-Ordering` | 内存排序 | 待补 |
-| `Chapter-04-Spin-Locks` | 构建自旋锁 | 待补 |
+| `Chapter-03-Memory-Ordering` | 内存排序 | **`本章学习笔记.md`** + [贯通笔记](./Atomics与内存序-贯通笔记.md)；代码见 **Chapter-02** 的 `use_atomic` / `use_fence` / `use_seqcst` |
+| `Chapter-04-Spin-Locks` | 构建自旋锁 | **`spin_lock.rs`** + **`本章学习笔记.md`**（Acquire/Release 实战）；`study_atomic::chapter_04` |
 | `Chapter-05-Channels` | 构建通道 | 待补 |
 | `Chapter-06-Custom-Arc` | 构建自定义 Arc | 待补 |
 | `Chapter-07-Processors` | 理解处理器 | 待补 |
