@@ -9,9 +9,11 @@
 | **`src/mod.rs`** | `study_atomic` 库入口：用 **`#[path = "../Chapter-01-…/mod.rs"]`** 等方式，把第 1、2 章文件夹挂成 **`chapter_01` / `chapter_02`** 模块。 |
 | **`Chapter-01-Rust-Concurrency-Basics/`** | 第 1 章：**`本章学习笔记.md`**（完整梳理）+ **`note.md`**（索引）+ 全部 `*.rs`。 |
 | **`Chapter-02-Atomics/`** | 第 2 章：**`本章学习笔记.md`**（原子 API + 内存模型/DR 理论）+ **`note.md`** + 全部 `*.rs`。 |
-| **`Chapter-03`～`Chapter-10`** | 目前仅 **`note.md`** 占位；后续可按书补代码或再挂 `#[path]`。 |
+| **`Chapter-03`～`Chapter-08`、`Chapter-10`** | 多数已有 **`本章学习笔记.md`**；无锁见第 10 章与 [无锁编程-贯通笔记.md](./无锁编程-贯通笔记.md)。 |
 
 构建：`cargo build -p study_atomic` 或根目录 `cargo run -- atomic`。
+
+**跨章专题笔记**：[互斥锁与锁体系-贯通笔记.md](./互斥锁与锁体系-贯通笔记.md) · [RwLock与读写锁体系-贯通笔记.md](./RwLock与读写锁体系-贯通笔记.md) · [Condvar与条件变量-贯通笔记.md](./Condvar与条件变量-贯通笔记.md) · [无锁编程-贯通笔记.md](./无锁编程-贯通笔记.md) · [Atomics与内存序-贯通笔记.md](./Atomics与内存序-贯通笔记.md)
 
 ## 章节目录（文件夹名 = 英文）
 
@@ -21,9 +23,9 @@
 | `Chapter-02-Atomics` | 原子操作 | 本文件夹内 `*.rs` |
 | `Chapter-03-Memory-Ordering` | 内存排序 | **`本章学习笔记.md`** + [贯通笔记](./Atomics与内存序-贯通笔记.md)；代码见 **Chapter-02** 的 `use_atomic` / `use_fence` / `use_seqcst` |
 | `Chapter-04-Spin-Locks` | 构建自旋锁 | **`spin_lock.rs`** + **`本章学习笔记.md`**（Acquire/Release 实战）；`study_atomic::chapter_04` |
-| `Chapter-05-Channels` | 构建通道 | 待补 |
-| `Chapter-06-Custom-Arc` | 构建自定义 Arc | 待补 |
-| `Chapter-07-Processors` | 理解处理器 | 待补 |
-| `Chapter-08-OS-Primitives` | 操作系统原语 | 待补 |
-| `Chapter-09-Custom-Locks` | 构建自定义锁 | 待补 |
-| `Chapter-10-Advanced-Concurrent-Data-Structures` | 高级并发数据结构 | 待补 |
+| `Chapter-05-Channels` | 构建通道 | **`one_shot_channel.rs`** + **`本章学习笔记.md`**；`study_atomic::chapter_05` |
+| `Chapter-06-Custom-Arc` | **构建自定义 Arc**（非 Mutex） | `README.md` 澄清；实现待补 |
+| `Chapter-07-Processors` | **理解处理器**（缓存/屏障，非 RwLock） | `README.md`；与锁性能见贯通笔记 |
+| `Chapter-08-OS-Primitives` | **OS 同步原语**（futex/pthread/Windows） | [本章学习笔记.md](./Chapter-08-OS-Primitives/本章学习笔记.md) · [Condvar与条件变量-贯通笔记.md](./Condvar与条件变量-贯通笔记.md) |
+| `Chapter-09-Custom-Locks` | **手写 Mutex/Condvar/RwLock**（有锁） | [本章学习笔记.md](./Chapter-09-Custom-Locks/本章学习笔记.md) · 各锁贯通笔记 |
+| `Chapter-10-Advanced-Concurrent-Data-Structures` | **无锁思想 / RCU / 链表 / 回收**（非第 9 章） | [本章学习笔记.md](./Chapter-10-Advanced-Concurrent-Data-Structures/本章学习笔记.md) · [无锁编程-贯通笔记.md](./无锁编程-贯通笔记.md) |

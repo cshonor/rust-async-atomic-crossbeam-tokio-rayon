@@ -1,7 +1,9 @@
-# Chapter 05 — 构建通道
+# Chapter 05 — 构建 Channel（索引）
 
-## 本章目标
+## 完整笔记
 
+**[本章学习笔记.md](./本章学习笔记.md)** — One-Shot 设计、MaybeUninit、Release/Acquire、park/unpark、业务场景
 
+## 代码
 
-## 要点梳理
+**`one_shot_channel.rs`** — `study_atomic::chapter_05::demo()`

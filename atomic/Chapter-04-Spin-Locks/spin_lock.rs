@@ -29,8 +29,21 @@ impl<T> SpinLock<T> {
         }
     }
 
+    /// 书中常用：`swap(true, Acquire)` 抢锁。
     pub fn lock(&self) -> Guard<'_, T> {
         while self.locked.swap(true, Ordering::Acquire) {
+            std::hint::spin_loop();
+        }
+        Guard { lock: self }
+    }
+
+    /// CAS 抢锁：`compare_exchange_weak(false, true, …)`，与 `lock()` 对照阅读。
+    pub fn lock_cas(&self) -> Guard<'_, T> {
+        while self
+            .locked
+            .compare_exchange_weak(false, true, Ordering::Acquire, Ordering::Relaxed)
+            .is_err()
+        {
             std::hint::spin_loop();
         }
         Guard { lock: self }
