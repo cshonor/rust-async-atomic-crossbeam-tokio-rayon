@@ -28,4 +28,4 @@
 | `Chapter-07-Processors` | **理解处理器**（缓存/屏障，非 RwLock） | `README.md`；与锁性能见贯通笔记 |
 | `Chapter-08-OS-Primitives` | **OS 同步原语**（futex/pthread/Windows） | [本章学习笔记.md](./Chapter-08-OS-Primitives/本章学习笔记.md) · [Condvar与条件变量-贯通笔记.md](./Condvar与条件变量-贯通笔记.md) |
 | `Chapter-09-Custom-Locks` | **手写 Mutex/Condvar/RwLock**（有锁） | [本章学习笔记.md](./Chapter-09-Custom-Locks/本章学习笔记.md) · 各锁贯通笔记 |
-| `Chapter-10-Advanced-Concurrent-Data-Structures` | **无锁思想 / RCU / 链表 / 回收**（非第 9 章） | [本章学习笔记.md](./Chapter-10-Advanced-Concurrent-Data-Structures/本章学习笔记.md) · [无锁编程-贯通笔记.md](./无锁编程-贯通笔记.md) |
+| `Chapter-10-Advanced-Concurrent-Data-Structures` | **全书收尾**：进阶模式、无锁、设计/优化/排错/面试 | [本章学习笔记.md](./Chapter-10-Advanced-Concurrent-Data-Structures/本章学习笔记.md) · [无锁编程-贯通笔记.md](./无锁编程-贯通笔记.md) |
