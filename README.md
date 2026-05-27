@@ -2,7 +2,7 @@
 
 本仓库把 **《Rust Atomics and Locks》路线（原子与锁）**、**Tokio / 异步 Rust 笔记与示例**、**《Network Programming with Rust》分阶段路线**，以及 **LLVM IR 透视（《Learn LLVM 17》取舍 + 归档）** 放在**并列目录**里，职责清晰、互不塞进同一 crate。
 
-仓库地址：<https://github.com/cshonor/rust-async-atomic-crossbeam-tokio-rayon>
+仓库地址：<https://github.com/cshonor/rust-concurrency-async-practice>
 
 ---
 
