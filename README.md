@@ -1,6 +1,6 @@
-# Rust 并发、异步、网络与 LLVM IR — 个人学习仓库
+# Rust 并发、异步、网络与系统编程 — 个人学习仓库
 
-本仓库把 **《Rust Atomics and Locks》路线（原子与锁）**、**Tokio / 异步 Rust 笔记与示例**、**《Network Programming with Rust》分阶段路线**，以及 **LLVM IR 透视（《Learn LLVM 17》取舍 + 归档）** 放在**并列目录**里，职责清晰、互不塞进同一 crate。
+本仓库把 **《Rust Atomics and Locks》**、**《Rust for Rustaceans》**、**Tokio / 异步 Rust**、**《Network Programming with Rust》**、**《The Linux Programming Interface》** 与 **LLVM IR（《Learn LLVM 17》取舍）** 放在**并列目录**里，职责清晰、互不塞进同一 crate。
 
 仓库地址：<https://github.com/cshonor/rust-concurrency-async-practice>
 
@@ -16,16 +16,19 @@
 | **网络书路线** | `rust_network_programming/` | **非 crate**：`stage01`～`stage09` 分阶段 `README.md` 模板与优先级说明。 |
 | **LLVM IR 与《Learn LLVM 17》** | `llvm_insight/` | **Part 01–04** 章节目录 + **`ir_samples/`** 归档约定；根下 **`llvm_insight_lab`** 小 crate 用于 **`--emit=llvm-ir`**。总览见 `llvm_insight/README.md`，取舍见 `llvm_insight/Learn-LLVM-17-学习取舍.md`。 |
 | **Linux 系统编程（TLPI）** | `TLPI/` | 《The Linux Programming Interface》**1～64 章**独立目录，每章 `notes.md` + 进度表；与线程/futex/epoll/socket 对照见 `TLPI/README.md`。 |
+| **进阶 Rust（RFR）** | `RFR/` | 《Rust for Rustaceans》**1～13 章**深度解析笔记（非 crate）；目录索引见 [`RFR/RFR-本书目录.md`](RFR/RFR-本书目录.md)。 |
 
 ---
 
 ## 推荐学习顺序（与目录设计一致）
 
-1. **`atomic/`** — 先把同步世界与 **内存模型 / 原子** 打牢。  
-2. **`atomic/crossbeam/`、`atomic/rayon/`** — 通道与数据并行，和第一章线程模型对照。  
-3. **`async_tokio/`** — 在已有并发直觉上读 Tokio 与异步控制流。  
-4. **`rust_network_programming/`** — 按 `stage` 优先级补 **Socket / 协议 / 工程化网络**。  
-5. **`llvm_insight/`** — 用已有 Rust 代码 **反查 IR 与优化**（不必早于网络强行学完）。
+1. **`RFR/`**（可选并行）— 已有 C++/系统经验时，用 **所有权 / 类型 / trait** 打底（第 1～4 章）。  
+2. **`atomic/`** — 同步世界与 **内存模型 / 原子** 打牢。  
+3. **`atomic/crossbeam/`、`atomic/rayon/`** — 通道与数据并行，和线程模型对照。  
+4. **`TLPI/`**（按需）— 理解 **syscall / 线程 / epoll / socket** 底层，对照 `atomic` 与网络。  
+5. **`async_tokio/`** — 在并发直觉上读 Tokio 与异步控制流（可与 RFR 第 8 章对照）。  
+6. **`rust_network_programming/`** — 按 `stage` 补 **Socket / 协议 / 工程化网络**。  
+7. **`llvm_insight/`** — 用已有 Rust 代码 **反查 IR 与优化**（不必早于网络强行学完）。
 
 ---
 
@@ -50,6 +53,9 @@
 ├── TLPI/                            # TLPI 1–64 章笔记（非 crate）
 │   ├── README.md
 │   └── chapter-NN-*/notes.md
+├── RFR/                             # Rust for Rustaceans 1–13 章笔记（非 crate）
+│   ├── RFR-本书目录.md
+│   └── Chapter-01-Foundations/ … Chapter-13-Rust-Ecosystem/
 └── llvm_insight/                    # llvm_insight_lab + part01–04 + ir_samples
     ├── Cargo.toml
     ├── src/lib.rs
