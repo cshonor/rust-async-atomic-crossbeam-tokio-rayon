@@ -4,6 +4,8 @@
 
 > 与仓库内 `RFR/Chapter-01-Foundations/` … `Chapter-13-Rust-Ecosystem/` 文件夹一一对应，可按章做笔记或放 demo。
 
+**何时读、如何配合 network/async/locks/LLVM/TLPI**：见 **[学习路径与章节对照.md](./学习路径与章节对照.md)**（含 13 章 ↔ 仓库板块对照表与问题驱动速查）。
+
 ---
 
 ## 前言与致谢
