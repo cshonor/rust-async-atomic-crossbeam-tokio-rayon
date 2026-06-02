@@ -1,34 +1,23 @@
-# Stage 05 — 应用层协议（RPC / FTP / SMTP）
+# Stage 05 — 应用层协议
 
-**对应书籍**：第 5 章 — *Application Layer Protocols*（应用层协议）
+**对应书籍**：第 5 章 — *Application Layer Protocols*
 
-## 核心内容
+## 章节目录（原书 4 节）
 
-1. **RPC / gRPC**：`.proto`、protobuf、`protoc-rust-grpc`（现代可对照 `tonic`）  
-2. **SMTP**：`lettre` 发信、TLS、告警邮件  
-3. **FTP**：`rust-ftp` 客户端、控制/数据连接  
-4. **TFTP**：UDP、`tftp_server`、PXE/嵌入式场景  
+| 书 § | 英文 | 中文 |
+|------|------|------|
+| 5.1 | Introduction to RPC | RPC 简介 |
+| 5.2 | Introduction to SMTP | SMTP 简介 |
+| 5.3 | Introduction to FTP and TFTP | FTP 与 TFTP 简介 |
+| 5.4 | Summary | 总结 |
 
 ## 学习定位
 
-- **可选、浅读**：目标不是邮件/FTP 客户端时，记协议共性即可。  
-- 时间有限时**让路给 stage03、04、07**。
-
-## 优先级与代码
-
-| 项目 | 建议 |
-|------|------|
-| 优先级 | **低（按需）** |
-| 是否必写 Demo | **否**（工作相关再写） |
+**按需浅读** — 优先 [stage03](../stage03_std_tcp_udp/) / [stage04](../stage04_serde_parse/) / [stage07](../stage07_tokio_async_net/)
 
 ## 笔记
 
 | 资料 | 说明 |
 |------|------|
-| **[Ch05 应用层协议 — 学习笔记](notes/Ch05-应用层协议-学习笔记.md)** | 全书第 5 章精读 |
-
-## 学习检查
-
-- [ ] 能区分传输层字节流与应用层语义（RPC/SMTP/FTP）  
-- [ ] 能说明 gRPC 与裸 TCP + JSON 的取舍  
-- [ ] 知道 FTP 与 TFTP 在传输层与认证上的差异  
+| [本章学习笔记.md](./本章学习笔记.md) | §5.1～5.4 索引 |
+| [Ch05 精读](notes/Ch05-应用层协议-学习笔记.md) | 正文 |
