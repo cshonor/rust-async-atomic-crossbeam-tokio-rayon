@@ -11,8 +11,8 @@ pub mod chapter_02;
 #[path = "../Chapter-04-Spin-Locks/mod.rs"]
 pub mod chapter_04;
 
-#[path = "../Chapter-05-Channels/mod.rs"]
-pub mod chapter_05;
+#[path = "../Chapter-06-Custom-Arc/mod.rs"]
+pub mod chapter_06;
 
 /// 简短概览：与原先 `atomic::demo` 行为一致。
 pub fn demo() {

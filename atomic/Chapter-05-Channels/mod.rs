@@ -1,5 +1,6 @@
-//! 第 5 章：通道（Channel）
+//! 第 5 章
 
+#[path = "5.1-one-shot-channel/5.1-one-shot-channel-demo.rs"]
 pub mod one_shot_channel;
 
 pub fn demo() {

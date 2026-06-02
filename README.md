@@ -12,7 +12,7 @@
 |------|------|------|
 | **原子与并发基础** | `atomic/` | Crate **`study_atomic`**：`chapter_01`（线程、`Mutex` / `Condvar`、`Arc`…）、`chapter_02`（`Atomic*`、内存序、栅栏…）。源码按章在 `Chapter-01-*`、`Chapter-02-*` 等目录，`#[path]` 由 `atomic/src/mod.rs` 引入。 |
 | **crossbeam / rayon 小示例** | `atomic/crossbeam/`、`atomic/rayon/` | 独立 crate：**`study_crossbeam`**、**`study_rayon`**（与书名/主线的对照副本，可单独 `cargo build`）。 |
-| **异步 Rust（袋鼠书向）** | `async_tokio/` | 按章 **`本章学习笔记.md`**、`demo.rs`，以及可配合主工程运行的 **`ch*_*.rs`** 示例源文件（依赖 Tokio / reqwest / mio 等，见各文件顶部说明）。 |
+| **异步 Rust（Async Rust 书）** | `async_tokio/` | 与 atomic 同规范：`X.Y-slug.md` + `X.Y-slug/` 仅 `.rs`；见 [async_tokio/README.md](./async_tokio/README.md) |
 | **网络书路线** | `rust_network_programming/` | **非 crate**：`stage01`～`stage09` 分阶段 `README.md` 模板与优先级说明。 |
 | **LLVM IR 与《Learn LLVM 17》** | `llvm_insight/` | **Part 01–04** 章节目录 + **`ir_samples/`** 归档约定；根下 **`llvm_insight_lab`** 小 crate 用于 **`--emit=llvm-ir`**。总览见 `llvm_insight/README.md`，取舍见 `llvm_insight/Learn-LLVM-17-学习取舍.md`。 |
 | **Linux 系统编程（TLPI）** | `TLPI/` | 《The Linux Programming Interface》**1～64 章**独立目录，每章 `notes.md` + 进度表；与线程/futex/epoll/socket 对照见 `TLPI/README.md`。 |
