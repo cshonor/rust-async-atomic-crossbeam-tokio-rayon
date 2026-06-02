@@ -36,16 +36,20 @@ stage06_http_programming/
 | 阶段 | 目录 | 书章 | 状态 |
 |------|------|------|------|
 | 范本 | `stage06_http_programming` | Ch6 | §6.1～6.4 笔记 + demo 已搭 |
-| 阻塞 Socket | `stage03_std_tcp_udp` | Ch3 | 待按 §3.1～3.5 拆 |
+| 阻塞 Socket | `stage03_std_tcp_udp` | Ch3 | §3.1～3.5 + 9 个 bin demo 已搭 |
 | 其余 | `stage02`～`stage09` | Ch2～附录 | 先保留 `notes/` 贯通稿，按您节奏拆 |
 
 **禁止**：在未要求时改写 `notes/` 贯通稿正文；新增内容放在 `X.Y-slug.md` 与 demo 目录。
 
 ---
 
-## 运行本章 demo
+## 运行 demo
 
 ```bash
+# Ch3
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_1_tcp_echo_server
+
+# Ch6
 cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_1_raw_http
 cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_3_reqwest_get
 ```

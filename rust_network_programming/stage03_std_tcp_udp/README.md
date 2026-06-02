@@ -1,32 +1,37 @@
 # Stage 03 — Rust 原生同步网络（std）
 
-**对应书籍**：第 3 章 — *TCP and UDP Using Rust*
+**对应书籍**：第 3 章 — *TCP and UDP Using Rust*（§3.1～3.5）
 
-## 章节目录（原书 5 节）
+## 结构（与 atomic / stage06 一致）
 
-| 书 § | 英文 | 中文 |
-|------|------|------|
-| 3.1 | A Simple TCP server and client | 简单 TCP 服务器与客户端 |
-| 3.2 | A Simple UDP server and client | 简单 UDP 服务器与客户端 |
-| 3.2.1 | UDP multicasting | UDP 多播 |
-| 3.3 | Miscellaneous utilities in std::net | `std::net` 实用工具 |
-| 3.4 | Some related crates | 相关第三方 crate |
-| 3.5 | Summary | 总结 |
+| 类型 | 路径 |
+|------|------|
+| 章索引 | [本章学习笔记.md](./本章学习笔记.md) |
+| 按节笔记 | `3.1-simple-tcp-server-client.md` … `3.5-summary.md` |
+| 贯通稿 | [notes/Ch03-…](./notes/Ch03-使用Rust进行TCP和UDP编程-学习笔记.md) |
+| Demo | [Cargo.toml](./Cargo.toml) · 仅 `std`，无第三方依赖 |
+
+规范：[../小节笔记与Demo规范.md](../小节笔记与Demo规范.md)
+
+## 运行 Demo
+
+```bash
+# 3.1 TCP（终端 A server，终端 B client）
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_1_tcp_echo_server
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_1_tcp_echo_client
+
+# 3.2 UDP
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_2_udp_echo_server
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_2_udp_echo_client
+
+# 3.2.1 多播（先 recv 再 send）
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_2_1_multicast_recv
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_2_1_multicast_send
+
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_3_std_net_utilities
+cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_5_summary
+```
 
 ## 学习定位
 
-> **地基级** — 阻塞 `std::net` → mio 概念 → [stage07](../stage07_tokio_async_net/) Tokio
-
-## 优先级
-
-| 项目 | 建议 |
-|------|------|
-| 优先级 | **最高** |
-| Demo | **建议必写** |
-
-## 笔记
-
-| 资料 | 说明 |
-|------|------|
-| [本章学习笔记.md](./本章学习笔记.md) | §3.1～3.5 索引 |
-| [Ch03 精读](notes/Ch03-使用Rust进行TCP和UDP编程-学习笔记.md) | 正文 |
+**地基级** — 阻塞 Socket → [stage07](../stage07_tokio_async_net/) 异步。

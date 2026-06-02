@@ -1,5 +1,8 @@
 # 第 3 章 — 使用 Rust 进行 TCP 和 UDP 编程（TCP and UDP Using Rust）
 
+> **按节学习（笔记 + demo）**：[本章学习笔记.md](../本章学习笔记.md) → `3.1-simple-tcp-server-client.md` … `3.5-summary.md`  
+> 下文为**全章贯通稿**；扩展时优先改各节 `.md` 与 demo。
+
 > 《Network Programming with Rust》· 把 Ch1 理论落到 `std::net`  
 > 阶段目录：[stage03_std_tcp_udp](../README.md) · 理论：[Ch01](../../stage01_network_basic/notes/Ch01-客户端服务器网络简介-学习笔记.md) · 异步进阶：[stage07](../../stage07_tokio_async_net/README.md)
 
