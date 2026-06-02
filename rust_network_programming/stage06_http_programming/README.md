@@ -9,7 +9,7 @@
 | 章索引 | [本章学习笔记.md](./本章学习笔记.md) |
 | 按节笔记 | `6.1-introducing-hyper.md` … `6.4-summary.md` |
 | 贯通稿 | [notes/Ch06-…](./notes/Ch06-在互联网上进行HTTP通信-学习笔记.md) |
-| Demo | `Cargo.toml` + `6.Y-slug/*-demo.rs` |
+| Demo | 章根 `Cargo.toml` + `6.Y-slug/`；**6.2** 另见 `6.2-introducing-rocket/Cargo.toml` |
 
 规范：[../小节笔记与Demo规范.md](../小节笔记与Demo规范.md)
 
@@ -18,6 +18,9 @@
 ```bash
 # 6.1 本地 HTTP（另开终端 curl http://127.0.0.1:18080/）
 cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_1_raw_http
+
+# 6.2 Rocket（http://127.0.0.1:18082/ 、 /api/ping）
+cargo run --manifest-path rust_network_programming/stage06_http_programming/6.2-introducing-rocket/Cargo.toml --bin demo_6_2_rocket_hello
 
 # 6.3 外网 GET
 cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_3_reqwest_get
