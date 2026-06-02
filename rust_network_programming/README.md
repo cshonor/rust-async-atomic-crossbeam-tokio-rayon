@@ -8,7 +8,7 @@
 |------|------|------|
 | Stage 1 | `stage01_network_basic` | 书 Ch1 网络理论打底（[Ch01 笔记](stage01_network_basic/notes/Ch01-客户端服务器网络简介-学习笔记.md)） |
 | Stage 2 | `stage02_rust_basis` | 书 Ch2 Rust 生态与语言（[Ch02 笔记](stage02_rust_basis/notes/Ch02-Rust及其生态系统简介-学习笔记.md)） |
-| Stage 3 | `stage03_std_tcp_udp` | **`std` 同步 TCP/UDP（全书地基之一）** |
+| Stage 3 | `stage03_std_tcp_udp` | 书 Ch3 **`std::net` TCP/UDP（[Ch03 笔记](stage03_std_tcp_udp/notes/Ch03-使用Rust进行TCP和UDP编程-学习笔记.md)）** |
 | Stage 4 | `stage04_serde_parse` | 序列化与二进制解析（工程必备） |
 | Stage 5 | `stage05_app_protocol` | RPC / FTP / SMTP（可选浅读） |
 | Stage 6 | `stage06_http_programming` | HTTP / Hyper / reqwest（按需深入） |
