@@ -2,6 +2,8 @@
 
 本目录为《Network Programming with Rust》的**结构化学习路线**，与仓库内 `async_tokio/`、`atomic/`、`crossbeam/`、`rayon/` **并列、互不冲突**：侧重 **Socket 实战、IO 模型、协议与工程化网络**，与「并发底层 + 异步理论」形成互补。
 
+**笔记 + Demo 约定**（与 `atomic/` 相同）：[小节笔记与Demo规范.md](./小节笔记与Demo规范.md) · **范本章**：[stage06](./stage06_http_programming/)（§6.1～6.4 已拆节 + 可运行 demo）。
+
 ## 阶段总览
 
 | 阶段 | 目录 | 定位 |
@@ -11,7 +13,7 @@
 | Stage 3 | `stage03_std_tcp_udp` | 书 Ch3 共 **5 节**（[索引](stage03_std_tcp_udp/本章学习笔记.md) · [精读](stage03_std_tcp_udp/notes/Ch03-使用Rust进行TCP和UDP编程-学习笔记.md)） |
 | Stage 4 | `stage04_serde_parse` | 书 Ch4 共 **4 节**（[索引](stage04_serde_parse/本章学习笔记.md) · [精读](stage04_serde_parse/notes/Ch04-数据序列化反序列化与解析-学习笔记.md)） |
 | Stage 5 | `stage05_app_protocol` | 书 Ch5 共 **4 节**（[索引](stage05_app_protocol/本章学习笔记.md) · [精读](stage05_app_protocol/notes/Ch05-应用层协议-学习笔记.md)） |
-| Stage 6 | `stage06_http_programming` | 书 Ch6 共 **4 节**（[索引](stage06_http_programming/本章学习笔记.md) · [精读](stage06_http_programming/notes/Ch06-在互联网上进行HTTP通信-学习笔记.md)） |
+| Stage 6 | `stage06_http_programming` | 书 Ch6 **4 节 + demo**（[索引](stage06_http_programming/本章学习笔记.md) · [贯通稿](stage06_http_programming/notes/Ch06-在互联网上进行HTTP通信-学习笔记.md)） |
 | Stage 7 | `stage07_tokio_async_net` | 书 Ch7 共 **3 主节** **TOP1**（[索引](stage07_tokio_async_net/本章学习笔记.md) · [精读](stage07_tokio_async_net/notes/Ch07-使用Tokio进行异步网络编程-学习笔记.md) · [`async_tokio/`](../async_tokio/)） |
 | Stage 8 | `stage08_network_security` | 书 Ch8 共 **3 主节**（[索引](stage08_network_security/本章学习笔记.md) · [精读](stage08_network_security/notes/Ch08-安全-学习笔记.md)） |
 | Stage 9 | `stage09_appendix_deep` | 书 **附录** 共 **6 主节**（[索引](stage09_appendix_deep/本章学习笔记.md) · [精读](stage09_appendix_deep/notes/附录-扩展与替代方案-学习笔记.md)） |

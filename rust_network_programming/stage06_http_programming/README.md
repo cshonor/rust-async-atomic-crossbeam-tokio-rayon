@@ -1,23 +1,30 @@
 # Stage 06 — HTTP 编程
 
-**对应书籍**：第 6 章 — *Talking HTTP in the Internet*
+**对应书籍**：第 6 章 — *Talking HTTP in the Internet*（§6.1～6.4）
 
-## 章节目录（原书 4 节）
+## 结构（与 atomic 一致）
 
-| 书 § | 英文 | 中文 |
-|------|------|------|
-| 6.1 | Introducing Hyper | Hyper 简介 |
-| 6.2 | Introducing Rocket | Rocket 简介 |
-| 6.3 | Introducing reqwest | reqwest 简介 |
-| 6.4 | Summary | 总结 |
+| 类型 | 路径 |
+|------|------|
+| 章索引 | [本章学习笔记.md](./本章学习笔记.md) |
+| 按节笔记 | `6.1-introducing-hyper.md` … `6.4-summary.md` |
+| 贯通稿 | [notes/Ch06-…](./notes/Ch06-在互联网上进行HTTP通信-学习笔记.md) |
+| Demo | `Cargo.toml` + `6.Y-slug/*-demo.rs` |
+
+规范：[../小节笔记与Demo规范.md](../小节笔记与Demo规范.md)
+
+## 运行 Demo
+
+```bash
+# 6.1 本地 HTTP（另开终端 curl http://127.0.0.1:18080/）
+cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_1_raw_http
+
+# 6.3 外网 GET
+cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_3_reqwest_get
+
+cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_4_summary
+```
 
 ## 学习定位
 
-按项目触发；调 API 优先 **§6.3 reqwest**。依赖 [Ch07](../stage07_tokio_async_net/) Tokio。
-
-## 笔记
-
-| 资料 | 说明 |
-|------|------|
-| [本章学习笔记.md](./本章学习笔记.md) | §6.1～6.4 索引 |
-| [Ch06 精读](notes/Ch06-在互联网上进行HTTP通信-学习笔记.md) | 正文 |
+调 API 优先 **§6.3 reqwest**；服务侧与 [Ch07](../stage07_tokio_async_net/) Tokio 对照学习。

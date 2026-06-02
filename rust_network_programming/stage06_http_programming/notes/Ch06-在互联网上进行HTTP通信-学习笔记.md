@@ -1,5 +1,8 @@
 # 第 6 章 — 在互联网上进行 HTTP 通信（Talking HTTP in the Internet）
 
+> **按节学习（笔记 + demo）**：[本章学习笔记.md](../本章学习笔记.md) → `6.1-introducing-hyper.md` … `6.4-summary.md`  
+> 下文为**全章贯通稿**（与各节文件内容重叠处以便连续阅读，扩展时优先改各节 `.md`）。
+
 > 《Network Programming with Rust》· HTTP 是 WWW 的骨干  
 > 阶段目录：[stage06_http_programming](../README.md) · 异步网络：[stage07](../../stage07_tokio_async_net/README.md) · Serde：[Ch04](../../stage04_serde_parse/notes/Ch04-数据序列化反序列化与解析-学习笔记.md)
 
