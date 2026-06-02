@@ -15,8 +15,12 @@ PATH_REPLACEMENTS = [
     ("ch03_join_macro_flume.rs", "3.6-creating-join-macro/3.6-creating-join-macro-demo.rs"),
     ("3.6-custom-join-macro/", "3.6-creating-join-macro/"),
     ("3.1-async-queue/", "3.1-building-async-queue/"),
-    ("ch04_mio_poll_listener.rs", "4.5-mio-poll/4.5-mio-poll-listener-demo.rs"),
-    ("ch05_resume_state_machine.rs", "5.3-simple-generator/5.3-simple-generator-state-machine-demo.rs"),
+    ("ch04_mio_poll_listener.rs", "4.8-polling-sockets-in-futures/4.8-polling-sockets-listener-demo.rs"),
+    ("4.5-mio-poll/", "4.8-polling-sockets-in-futures/"),
+    ("4.5-mio-poll-listener-demo.rs", "4.8-polling-sockets-listener-demo.rs"),
+    ("ch05_resume_state_machine.rs", "5.2-generating-with-coroutines/5.2-generating-state-machine-demo.rs"),
+    ("5.3-simple-generator/", "5.2-generating-with-coroutines/"),
+    ("5.3-simple-generator-state-machine-demo.rs", "5.2-generating-state-machine-demo.rs"),
     ("ch06_callback.rs", "6.1-heater-system/6.1-heater-system-callback-demo.rs"),
     ("ch06_heater_display.rs", "6.1-heater-system/6.1-heater-system-display-demo.rs"),
     ("ch07_local_pool_pinned.rs", "7.2-local-pool/7.2-local-pool-pinned-demo.rs"),
@@ -133,65 +137,20 @@ def split_ch03():
 
 def split_ch04():
     ch = ROOT / "ch04_network_io_runtime"
-    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
-    mapping = {
-        "4.1-executor-connector.md": (p.get("_preamble", ""), p.get("1. 核心概念：执行器与连接器 (Executors & Connectors)", "")),
-        "4.2-hyper-integration.md": (p.get("2. 集成 hyper 库实现 HTTP 访问", ""),),
-        "4.3-http-connection.md": (section_slice(p.get("2. 集成 hyper 库实现 HTTP 访问", ""), "###", None),),
-        "4.4-async-read-write.md": ("## 4.4 AsyncRead / AsyncWrite\n\n", "见书中 Tokio trait 实现小节。\n"),
-        "4.5-mio-poll.md": (p.get("3. 深入底层：使用 mio 处理底层 I/O", ""),),
-        "4.6-socket-send.md": (
-            p.get("4. 关键依赖项", ""),
-            p.get("5. 易错点与建议 (Gotchas)", ""),
-            p.get("总结", ""),
-            p.get("6. 配套代码说明（本仓库）", ""),
-        ),
-    }
-    for k, v in mapping.items():
-        write_section(ch, k, v)
-    write_index(
-        ch,
-        "第 4 章 — 学习笔记索引",
-        [
-            ("4.1", "4.1-executor-connector.md", "4.1-executor-connector"),
-            ("4.2", "4.2-hyper-integration.md", ""),
-            ("4.3", "4.3-http-connection.md", ""),
-            ("4.4", "4.4-async-read-write.md", ""),
-            ("4.5", "4.5-mio-poll.md", "4.5-mio-poll"),
-            ("4.6", "4.6-socket-send.md", ""),
-        ],
-    )
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "4.10-summary.md" in src and "共 10 节" in src:
+        print("Ch04 already on 10-section layout, skip")
+        return
+    print("Ch04: maintain 4.1..4.10 md manually")
 
 
 def split_ch05():
     ch = ROOT / "ch05_coroutines_generators"
-    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
-    mapping = {
-        "5.1-coroutines-intro.md": (p.get("_preamble", ""), p.get("1. 什么是协程？", "")),
-        "5.2-generating.md": (p.get("2. 协程的实现机制", ""),),
-        "5.3-simple-generator.md": (p.get("3. 生成器 (Generators)：弱协程", ""),),
-        "5.4-stacking.md": (p.get("4. 协程的高级应用", ""),),
-        "5.5-simulate-async.md": (p.get("5. 协程与异步的关系", ""),),
-        "5.6-testing-coroutines.md": (
-            p.get("6. 协程的测试优势", ""),
-            p.get("总结", ""),
-            p.get("7. 配套代码说明（本仓库）", ""),
-        ),
-    }
-    for k, v in mapping.items():
-        write_section(ch, k, v)
-    write_index(
-        ch,
-        "第 5 章 — 学习笔记索引",
-        [
-            ("5.1", "5.1-coroutines-intro.md", "5.1-coroutines-intro"),
-            ("5.2", "5.2-generating.md", ""),
-            ("5.3", "5.3-simple-generator.md", "5.3-simple-generator"),
-            ("5.4", "5.4-stacking.md", ""),
-            ("5.5", "5.5-simulate-async.md", ""),
-            ("5.6", "5.6-testing-coroutines.md", ""),
-        ],
-    )
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "5.6-summary.md" in src and "共 6 节" in src:
+        print("Ch05 already on 6-section layout, skip")
+        return
+    print("Ch05: maintain 5.1..5.6 md manually")
 
 
 def split_ch06():
