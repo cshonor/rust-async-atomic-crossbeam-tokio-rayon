@@ -44,6 +44,10 @@ pub mod usejoin;
 
 ## async_tokio
 
-与 atomic 相同：`本章学习笔记.md` 为主文档；`1.Y-slug.md` 为索引。
+| 文件 | 角色 |
+|------|------|
+| `本章学习笔记.md` | **章索引表**（§ → 精读 `.md` → demo 目录） |
+| `X.Y-slug.md` | **该节完整精读**（非一行占位） |
+| `X.Y-slug/*-demo.rs` | **每节至少一个**可运行示例 |
 
-路径批量更新：`atomic/scripts/update-chapter-note-paths.ps1` · `async_tokio/scripts/update-chapter-note-paths.ps1`
+维护：`async_tokio/scripts/scaffold-missing-demos.py` · `update-index-demos.py`
