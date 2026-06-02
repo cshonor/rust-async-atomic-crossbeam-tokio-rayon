@@ -1,31 +1,41 @@
 # Stage 09 — 附录与底层拔高
 
-**对应书籍**：附录（协程、`Future`、解析器组合子等）
+**对应书籍**：**附录（Appendix）** — 扩展与替代方案（资料中或称作「第 9 章」）
 
 ## 核心内容
 
-- `Future` 状态机、`Waker`、执行器视角（与第 10 章无依赖栈对照）  
-- 协程 / generator（若使用 nightly 实验）  
-- 解析器组合子、与网络流式读写的结合
+1. 协程 / 生成器（无栈 vs 有栈、nightly `yield`）  
+2. **`may`** / `may_minihttp`（有栈协程 HTTP）  
+3. **`futures-await`** → 现代 **`async/await`**  
+4. **`rayon`** 数据并行  
+5. **`pest`** vs Ch4 **`nom`**  
+6. **`bitflags`**、**`url`**  
 
 ## 学习定位
 
-- **与 LLVM / 编译优化、异步本质** 联动时的加深区。  
-- 可与 `atomic/`、`async_tokio/ch02_async_rust_core/`、`ch10_*` 示例交叉阅读。
+- **兴趣驱动加深**：与 `async_tokio/`、`atomic/rayon/` 交叉阅读。  
+- 不必阻塞主线（stage03 + 07）。
 
 ## 优先级与代码
 
 | 项目 | 建议 |
 |------|------|
-| 优先级 | **中高（兴趣驱动）** |
-| 是否必写 Demo | **选做**（手写 `poll`、最小 `block_on` 等） |
+| 优先级 | **中高（选读）** |
+| 是否必写 Demo | **选做** |
+
+## 笔记
+
+| 资料 | 说明 |
+|------|------|
+| **[附录 — 学习笔记](notes/附录-扩展与替代方案-学习笔记.md)** | 全书附录精读 |
 
 ## 建议活动
 
-- [ ] 对照 `async_tokio/ch10_dependency_free_async_server/ch10_noop_waker_block_on.rs` 理解驱动循环  
-- [ ] 对照 `async_tokio/ch05_coroutines_generators/` 与书中协程叙述  
-- [ ] （可选）独立 crate 实验 nightly generator  
+- [ ] `async_tokio/ch10_noop_waker_block_on.rs`  
+- [ ] `async_tokio/ch05_coroutines_generators/`  
+- [ ] `cargo build --manifest-path atomic/rayon/Cargo.toml`  
 
-## 笔记区
+## 学习检查
 
-（在此补充链接、摘录或 `notes.md`）
+- [ ] 能说明 Tokio 与 rayon 各自解决什么问题  
+- [ ] 能对比 nom 与 pest 一种即可  
