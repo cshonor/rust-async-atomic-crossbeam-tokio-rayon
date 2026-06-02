@@ -7,7 +7,7 @@
 | 阶段 | 目录 | 定位 |
 |------|------|------|
 | Stage 1 | `stage01_network_basic` | 书 Ch1 网络理论打底（[Ch01 笔记](stage01_network_basic/notes/Ch01-客户端服务器网络简介-学习笔记.md)） |
-| Stage 2 | `stage02_rust_basis` | 书 Ch2 Rust 生态与语言（[Ch02 笔记](stage02_rust_basis/notes/Ch02-Rust及其生态系统简介-学习笔记.md)） |
+| Stage 2 | `stage02_rust_basis` | 书 Ch2 共 **10 节**（[索引](stage02_rust_basis/本章学习笔记.md) · [精读](stage02_rust_basis/notes/Ch02-Rust及其生态系统简介-学习笔记.md)） |
 | Stage 3 | `stage03_std_tcp_udp` | 书 Ch3 **`std::net` TCP/UDP（[Ch03 笔记](stage03_std_tcp_udp/notes/Ch03-使用Rust进行TCP和UDP编程-学习笔记.md)）** |
 | Stage 4 | `stage04_serde_parse` | 书 Ch4 Serde / nom 解析（[Ch04 笔记](stage04_serde_parse/notes/Ch04-数据序列化反序列化与解析-学习笔记.md)） |
 | Stage 5 | `stage05_app_protocol` | 书 Ch5 RPC/gRPC、SMTP、FTP/TFTP（[Ch05 笔记](stage05_app_protocol/notes/Ch05-应用层协议-学习笔记.md)） |

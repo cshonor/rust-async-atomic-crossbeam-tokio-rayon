@@ -1,87 +1,102 @@
 # 第 2 章 — Rust 及其生态系统简介（Introduction to Rust and its Ecosystem）
 
-> 《Network Programming with Rust》· 网络编程前的语言基础  
-> 阶段目录：[stage02_rust_basis](../README.md) · 并发深挖：仓库 [`atomic/`](../../../atomic/) · 异步：[`async_tokio/`](../../../async_tokio/)
+> 《Network Programming with Rust》· 全书 **10 个小节**（§2.6、§2.7 各含 2 个次级小节）  
+> 章索引：[本章学习笔记.md](../本章学习笔记.md) · 阶段：[stage02](../README.md)
 
-本章讲解 Rust 核心概念与独特机制，为后续用 Rust 写网络程序打语言地基。
+本章为后续网络编程提供语言基础：生态与入门 → 借用/泛型/错误 → 宏与函数式 → 并发与测试。
 
 ---
 
-## 1. Rust 生态系统与入门
+## 章节目录（与原书一致）
+
+| § | 英文 | 中文 |
+|---|------|------|
+| 2.1 | The Rust ecosystem | Rust 生态系统 |
+| 2.2 | Getting started with Rust | Rust 入门 |
+| 2.3 | Introduction to the borrow checker | 借用检查器简介 |
+| 2.4 | Generics and the trait system | 泛型与特征系统 |
+| 2.5 | Error handling | 错误处理 |
+| 2.6 | The macro system | 宏系统（含语法宏、过程宏） |
+| 2.7 | Functional features in Rust | 函数式特性（含高阶函数、迭代器） |
+| 2.8 | Concurrency primitives | 并发原语 |
+| 2.9 | Testing | 测试 |
+| 2.10 | Summary | 总结 |
+
+---
+
+## 2.1 The Rust ecosystem（Rust 生态系统）
+
+Rust 社区与工具链是写网络程序的前提。
 
 | 组件 | 作用 |
 |------|------|
-| **`rustc`** | Rust 编译器；发布渠道：**nightly**（最新实验）、**beta**、**stable**（推荐生产与学习） |
-| **`rustup`** | 官方工具链安装器，管理多版本 `rustc`、组件（clippy、rustfmt 等） |
-| **`Cargo`** | 包管理 + 构建：新建项目、依赖、编译、测试、运行 |
+| **`rustc`** | 编译器；渠道：**stable**（学习与生产）、**beta**、**nightly**（实验特性） |
+| **`rustup`** | 安装/切换工具链，管理 `clippy`、`rustfmt` 等组件 |
+| **`Cargo`** | 包管理 + 构建 + 测试 + 运行 |
+| **crates.io** | 包注册中心；`Cargo.toml` 声明依赖即可拉取 |
 
-### Cargo 常用流程
+网络项目常见依赖：`tokio`、`serde`、`bytes`、`reqwest` 等，均通过 Cargo 引入。
+
+---
+
+## 2.2 Getting started with Rust（Rust 入门）
+
+书中演示用 Cargo 创建项目并从 crates.io 引入外部 crate（如 **`term`** 做终端输出）。
 
 ```bash
 cargo new my_net_app
 cd my_net_app
-# 在 Cargo.toml 的 [dependencies] 里添加 crates.io 上的 crate，例如 term
+# Cargo.toml [dependencies] 中添加 crate
 cargo build
 cargo run
 ```
 
-- **crates.io**：社区包注册中心，在 `Cargo.toml` 声明版本后由 Cargo 拉取。  
-- 书中示例可能引入如 **`term`** 等 crate 做终端输出；网络项目中常见 **`tokio`**、**`serde`**、**`bytes`** 等，思路相同。
+| 命令 | 作用 |
+|------|------|
+| `cargo new` | 新建二进制或库工程 |
+| `cargo build` | 编译（debug / `--release`） |
+| `cargo run` | 编译并运行 |
+| `cargo test` | 运行测试（见 §2.9） |
 
-**与网络编程的关系**：几乎每个 Rust 网络项目都是 Cargo 工程；先熟悉 `cargo run` / `cargo test`，再写 Socket 代码会顺很多。
+**与网络的关系**：后续 Ch3 起的 Socket 示例几乎都是 Cargo 工程；先熟悉工程布局（`src/main.rs`、`Cargo.toml`）再写 `std::net`。
 
 ---
 
-## 2. 借用检查器与所有权（Borrow Checker）
+## 2.3 Introduction to the borrow checker（借用检查器简介）
 
-Rust **无 GC** 仍能保证内存安全，靠的是**所有权 + 借用 + 生命周期**，在**编译期**拦住悬垂指针和数据竞争。
+Rust **无 GC** 仍保证内存安全，靠**所有权 + 借用 + 生命周期**，在编译期拦截悬垂指针与数据竞争。
 
 ### 所有权（Ownership）
 
-- 每个值在任意时刻有**唯一**所有者。  
-- 所有者离开作用域 → 值被 **drop**（释放资源）。  
-- **Move**：堆上复杂类型（如 `String`、`Vec`）赋值/传参时**转移所有权**，旧绑定失效。  
-- **Copy**：栈上简单类型（如 `i32`、`bool`）按位拷贝，原变量仍可用。
+- 每个值在任意时刻有**唯一**所有者；所有者离开作用域 → **drop**。  
+- **Move**：`String`、`Vec` 等堆数据赋值时转移所有权，旧绑定失效。  
+- **Copy**：`i32`、`bool` 等栈上简单类型按位拷贝。
 
 ```rust
 let s1 = String::from("hello");
-let s2 = s1;   // s1 不再可用（move）
-// println!("{}", s1); // 编译错误
+let s2 = s1;   // move，s1 不再可用
 ```
 
 ### 借用（Borrowing）
 
-通过**引用**临时访问而不拿走所有权：
-
-| 类型 | 写法 | 规则（同一作用域内） |
-|------|------|----------------------|
-| 不可变借用 | `&T` | 可有**多个** |
-| 可变借用 | `&mut T` | **至多一个**；且不能与任何 `&T` 共存 |
-
-→ 编译期排除「同时读写」类数据竞争，是「无畏并发」的语法基础。
+| 类型 | 写法 | 同一作用域内 |
+|------|------|----------------|
+| 不可变借用 | `&T` | 可多个 |
+| 可变借用 | `&mut T` | 至多一个，且不能与 `&T` 共存 |
 
 ### 生命周期（Lifetimes）
 
-标注引用**能活多久**（如 `'a`、`'static`），避免**悬垂引用**。
+标注引用有效范围（`'a`、`'static`），避免悬垂引用。
 
-```rust
-fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-    if x.len() > y.len() { x } else { y }
-}
-```
+- **`'static`**：整个程序有效；`thread::spawn`、部分异步任务要求 `'static` 闭包/Future。  
 
-- **`'static`**：整个程序期间都有效（如字符串字面量、泄漏的 `Box`）。  
-- **网络里常见**：`thread::spawn` 要求闭包 `'static`；异步任务也常要求 `'static` Future（见 `async_tokio/`）。
-
-更系统：[`atomic/Chapter-01`](../../../atomic/Chapter-01-Rust-Concurrency-Basics/本章学习笔记.md) §1.3～1.6。
+系统精读：[`atomic/Chapter-01`](../../../atomic/Chapter-01-Rust-Concurrency-Basics/本章学习笔记.md)。
 
 ---
 
-## 3. 泛型与特征（Generics & Traits）
+## 2.4 Generics and the trait system（泛型与特征系统）
 
 ### 泛型
-
-用 `<T>` 写一份代码，复用于多种类型：
 
 ```rust
 fn print_twice<T: std::fmt::Display>(x: T) {
@@ -89,35 +104,30 @@ fn print_twice<T: std::fmt::Display>(x: T) {
 }
 ```
 
+一份实现，多种类型复用。
+
 ### 特征（Traits）
 
-定义**类型共有的行为**（类似其他语言的 interface）：
+定义类型**共有行为**（类似 interface）：
 
-- 为自定义类型实现标准特征：`Display`、`Debug`、`Add` 等。  
-- 可**自定义 trait**，再 `impl Trait for MyType`。  
-- 泛型上常写 **trait bound**：`T: Read + Write`。
+- 实现 `Display`、`Debug`、`Add` 等标准 trait。  
+- 自定义 trait + `impl Trait for MyType`。  
+- 泛型约束：`T: Read + Write`。
 
-**与网络编程的关系**：`Read` / `Write` / `AsyncRead` / `AsyncWrite` 等都是 trait；协议解析、缓冲封装都建立在 trait 抽象上。
+**网络**：`Read` / `Write`、`AsyncRead` / `AsyncWrite` 是 I/O 抽象基石（Ch3/Ch7）。
 
 ---
 
-## 4. 错误处理（Error handling）
-
-Rust **不默认忽略错误**，用枚举显式表达「可能失败」。
+## 2.5 Error handling（错误处理）
 
 | 类型 | 含义 | 变体 |
 |------|------|------|
-| **`Result<T, E>`** | 可恢复错误 | `Ok(T)` / `Err(E)` |
-| **`Option<T>`** | 可能缺失 | `Some(T)` / `None` |
-
-常用写法：
+| **`Result<T, E>`** | 可恢复错误 | `Ok` / `Err` |
+| **`Option<T>`** | 可能无值 | `Some` / `None` |
 
 ```rust
-use std::fs::File;
-use std::io::{self, Read};
-
-fn read_config(path: &str) -> io::Result<String> {
-    let mut f = File::open(path)?;  // ? 把 Err 向上返回
+fn read_config(path: &str) -> std::io::Result<String> {
+    let mut f = std::fs::File::open(path)?;
     let mut s = String::new();
     f.read_to_string(&mut s)?;
     Ok(s)
@@ -126,34 +136,54 @@ fn read_config(path: &str) -> io::Result<String> {
 
 | 方式 | 适用 |
 |------|------|
-| **`?`** | 库代码、可传播错误 |
-| **`match` / `if let`** | 需要分支处理 |
-| **`unwrap()` / `expect()`** | 原型、确定不会失败时（生产慎用） |
-| **`panic!`** | 不可恢复、逻辑不应到达的分支 |
+| **`?`** | 向上传播 `Err` |
+| **`match` / `if let`** | 分支处理 |
+| **`unwrap` / `expect`** | 原型（生产慎用） |
+| **`panic!`** | 不可恢复逻辑错误 |
 
-**网络 I/O**：`connect`、`read`、`write` 几乎都返回 `Result`；异步里还有 `io::ErrorKind`（对端重置、超时等）。习惯在边界用 `?`，在 `main` 或顶层统一 `fn main() -> Result<(), Box<dyn Error>>`。
-
----
-
-## 5. 宏系统（The macro system）
-
-- 调用形式常带 **`!`**：`println!`、`vec!`、`panic!`。  
-- **卫生宏（Hygienic）**：宏里定义的变量默认不「泄漏」污染调用方作用域。
-
-| 种类 | 定义方式 | 特点 |
-|------|----------|------|
-| **声明宏（语法宏）** | `macro_rules!` | 模式匹配 + 模板展开 |
-| **过程宏** | `#[derive(...)]`、`#[tokio::main]` 等 | 操作 AST，用于 derive、属性宏、函数式宏 |
-
-网络代码里常见：`println!`、`format!`、`async_trait` / `tokio::select!` 等；理解「宏在编译期展开成普通 Rust」即可，不必先写复杂宏。
+**网络 I/O**：`connect`、`read`、`write` 多返回 `Result`；顶层可用 `fn main() -> Result<(), Box<dyn Error>>`。
 
 ---
 
-## 6. 函数式特性（Functional features）
+## 2.6 The macro system（宏系统）
 
-### 闭包（Closures）
+宏在**编译期**展开；调用常带 **`!`**。具备**卫生性（Hygienic）**：宏内变量默认不污染调用方作用域。
 
-匿名函数，可捕获环境：
+### 2.6.1 Syntactic macros（语法宏）
+
+用 **`macro_rules!`** 做模式匹配与模板替换：
+
+```rust
+macro_rules! say_hello {
+    () => { println!("Hello!"); };
+}
+```
+
+`vec!`、`println!`、`panic!` 均属此类。
+
+### 2.6.2 Procedural macros（过程宏）
+
+直接操作编译器 **AST**，更灵活：
+
+| 形式 | 示例 |
+|------|------|
+| **derive 宏** | `#[derive(Serialize, Deserialize)]` |
+| **属性宏** | `#[tokio::main]`、`#[test]` |
+| **函数式宏** | `async_trait::async_trait` 等 |
+
+书中指出过程宏有望逐步承担更多代码生成职责。网络开发中：**Serde derive**、**Tokio 入口宏** 最常见。
+
+---
+
+## 2.7 Functional features in Rust（Rust 中的函数式特性）
+
+受 Haskell、OCaml 等影响；利于表达数据变换与组合逻辑。
+
+### 2.7.1 Higher-order functions（高阶函数）
+
+**高阶函数**：接收函数作为参数，或返回函数的函数。
+
+**闭包（Closures）** 是 Rust 中最常用的高阶手段：
 
 ```rust
 let add = |a, b| a + b;
@@ -161,57 +191,56 @@ let v = vec![1, 2, 3];
 let sum: i32 = v.iter().fold(0, |acc, x| acc + x);
 ```
 
-- **`move`**：强制闭包**取得**捕获变量的所有权（`thread::spawn`、异步任务里极常见）。
+- **`move`**：闭包取得捕获变量的所有权 → `thread::spawn`、异步 `spawn` 必备。  
+- 函数指针 `fn(i32) -> i32` 也可作为参数传递。
 
-### 迭代器（Iterators）
+### 2.7.2 Iterators（迭代器）
 
-- **惰性**：适配器链（`map`、`filter`）在 `collect` / `for` 消费时才真正执行。  
-- 自定义类型实现 **`Iterator`**，提供 `next() -> Option<Item>`，即可用 `for` 与适配器。
+**迭代器**是惰性序列；`Iterator::next() -> Option<Item>`，`None` 表示结束。
 
 ```rust
 for n in 1..5 {
     println!("{n}");
 }
+// 适配器：map、filter、fold — 在 collect/for 消费时才执行
 ```
 
-**网络场景**：按行读 socket（`lines()`）、解析协议字段、批量处理连接 ID 等，迭代器 + `collect` 很常用。
+自定义类型实现 `Iterator` 后可用 `for` 与适配器（书中 Collatz 等示例思路）。
+
+**网络**：按行读（`lines()`）、批量处理连接、协议字段遍历。
 
 ---
 
-## 7. 并发原语（Concurrency primitives）
+## 2.8 Concurrency primitives（并发原语）
 
-Rust 目标：**无畏并发（fearless concurrency）**。
+**无畏并发（fearless concurrency）**：1:1 线程模型（一个 Rust 线程 ≈ 一个 OS 线程）。
 
-| 要点 | 说明 |
+| 机制 | API / 概念 |
+|------|------------|
+| 创建线程 | `std::thread::spawn` |
+| 消息传递 | `mpsc::channel` |
+| 共享状态 | `Arc<Mutex<T>>` 等 |
+| 线程安全标记 | **`Send`**（可跨线程移所有权）、**`Sync`**（可安全共享 `&T`） |
+
+非法跨线程共享在**编译期**报错。  
+**`unsafe`**：绕过部分检查，用于 FFI、底层结构；应用层尽量少用。
+
+| 深挖 | 路径 |
 |------|------|
-| **1:1 线程模型** | 一个 Rust 线程 ≈ 一个 OS 线程 |
-| **创建** | `std::thread::spawn` |
-| **消息传递** | `mpsc::channel`：发送端 / 接收端，常比共享内存更易推理 |
-| **共享状态** | `Arc<Mutex<T>>` 等 + **`Send`** / **`Sync`** trait 标记可否跨线程 |
-
-- **`Send`**：所有权可安全移到另一线程。  
-- **`Sync`**：可通过 `&T` 在多线程间共享（即 `&T` 是 `Send`）。
-
-在借用规则下，非法跨线程共享会在**编译期**报错。
-
-**`unsafe`**：可绕过部分检查，由程序员保证不变量；FFI、自写数据结构、与 C 库交互时会遇到。网络栈底层或零拷贝缓冲可能涉及，但应用层应尽量少用。
-
-**本仓库延伸**：
-
-| 主题 | 路径 |
-|------|------|
-| 线程、`Mutex`、`Condvar` | [`atomic/Chapter-01`](../../../atomic/Chapter-01-Rust-Concurrency-Basics/) |
-| 异步、`spawn`、`JoinHandle` | [`async_tokio/`](../../../async_tokio/) |
+| 线程、锁 | [`atomic/`](../../../atomic/Chapter-01-Rust-Concurrency-Basics/) |
+| 异步并发 | [`async_tokio/`](../../../async_tokio/) · [Ch07](../../stage07_tokio_async_net/) |
 
 ---
 
-## 8. 测试（Testing）
+## 2.9 Testing（测试）
 
-| 方式 | 写法 | 作用 |
-|------|------|------|
-| **单元测试** | 模块内 `#[cfg(test)] mod tests { #[test] fn ... }` | `cargo test` |
-| **集成测试** | 项目 `tests/*.rs` | 测对外 API |
-| **文档测试** | `///` 或 `//!` 代码块中的示例 | 保证文档示例可编译、可运行 |
+测试在 Rust 中是一等公民。
+
+| 类型 | 写法 |
+|------|------|
+| **单元测试** | 同文件 `#[cfg(test)] mod tests { #[test] fn ... }` |
+| **集成测试** | 项目根 `tests/*.rs` |
+| **文档测试（Doc-tests）** | `///` 代码块中的示例，`cargo test` 自动运行 |
 
 ```rust
 #[cfg(test)]
@@ -223,18 +252,33 @@ mod tests {
 }
 ```
 
-网络项目里常见：用 `std::net` 起本地回环服务测协议；异步用 `tokio::test`；大流量用集成测试 + 模拟对端。
+网络项目：`127.0.0.1` 起临时服务测协议；异步用 `#[tokio::test]`。
 
 ---
 
-## 本章自检（Stage 02）
+## 2.10 Summary（总结）
 
-- [ ] 能说明 `rustc` / `rustup` / `Cargo` 各做什么  
-- [ ] 能解释 move vs copy，以及 `&` / `&mut` 借用规则  
-- [ ] 能读懂 `Result` + `?` 在 I/O 函数里的用法  
-- [ ] 知道 `trait` 与泛型 bound 在网络抽象（`Read`/`Write`）里的角色  
-- [ ] 能区分 `mpsc` 与 `Arc<Mutex<_>>` 两种并发风格  
-- [ ] 知道 `Send`/`Sync` 与 `thread::spawn`、Tokio 任务的关系  
+| 块 | 要点 |
+|----|------|
+| 生态 | `rustc` + `rustup` + `Cargo` + crates.io |
+| 核心 | 所有权/借用/生命周期；泛型 + trait；`Result`/`Option` |
+| 进阶 | 语法宏 / 过程宏；闭包 + 迭代器 |
+| 工程 | 线程、`mpsc`、`Send`/`Sync`；单元测试与 doc-test |
+
+写网络代码时，编译器报错大多落在 **§2.3（借用）**、**§2.5（错误）**、**§2.8（Send/'static）** — 可优先回查这三节。
+
+---
+
+## 本章自检
+
+- [ ] §2.1～2.2：能说明 Cargo 基本工作流  
+- [ ] §2.3：move/copy、`&` / `&mut`、`'static` 与 spawn 的关系  
+- [ ] §2.4：`Read`/`Write` 与 trait bound  
+- [ ] §2.5：`Result` + `?` 在 I/O 中的用法  
+- [ ] §2.6：能区分 `macro_rules!` 与 `#[derive]`  
+- [ ] §2.7：`move` 闭包与 `par_iter` 以外的 `iter` 惰性链  
+- [ ] §2.8：`mpsc` vs `Arc<Mutex<_>>`，`Send`/`Sync`  
+- [ ] §2.9：`cargo test` 与 doc-test  
 
 ---
 
@@ -242,6 +286,6 @@ mod tests {
 
 | 方向 | 路径 |
 |------|------|
-| 书 Ch1 网络概念 | [stage01 — Ch01 笔记](../../stage01_network_basic/notes/Ch01-客户端服务器网络简介-学习笔记.md) |
-| 阻塞 TCP/UDP | [stage03_std_tcp_udp](../../stage03_std_tcp_udp/README.md) |
-| 异步网络 | [stage07_tokio_async_net](../../stage07_tokio_async_net/README.md) |
+| Ch1 网络基础 | [stage01](../../stage01_network_basic/) |
+| Ch3 `std::net` | [stage03](../../stage03_std_tcp_udp/) |
+| Ch7 Tokio | [stage07](../../stage07_tokio_async_net/) |
