@@ -27,10 +27,14 @@ $map = @{
     @("``ch08_actor_resp_channel.rs``", "``8.1-building-basic-actor/8.1-building-basic-actor-demo.rs``")
   )
   "ch09_async_design_patterns/本章学习笔记.md" = @(
-    @("``ch09_retry_backoff.rs``", "``9.5-retry-pattern/9.5-retry-pattern-backoff-demo.rs``")
+    @("``ch09_retry_backoff.rs``", "``9.5-retry-pattern/9.5-retry-pattern-backoff-demo.rs``"),
+    @("``9.1-isolated-module/``", "``9.1-building-isolated-module/``")
   )
   "ch10_dependency_free_async_server/本章学习笔记.md" = @(
-    @("同目录 ``demo.rs``", "``10.2-std-runtime/`` 下各 demo")
+    @("``ch10_std_tcp_nonblocking.rs``", "``10.2-building-std-async-runtime/10.2-building-std-async-runtime-tcp-nonblocking-demo.rs``"),
+    @("``ch10_noop_waker_block_on.rs``", "``10.2-building-std-async-runtime/10.2-building-std-async-runtime-noop-waker-demo.rs``"),
+    @("``10.1-basics/``", "``10.1-setting-up-basics/``"),
+    @("``10.2-std-runtime/``", "``10.2-building-std-async-runtime/``")
   )
   "ch01_async_intro/本章学习笔记.md" = @(
     @("同目录 ``demo.rs``", "``1.1-what-is-async/1.1-what-is-async-stdlib-demo.rs``")

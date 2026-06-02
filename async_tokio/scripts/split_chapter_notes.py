@@ -35,17 +35,22 @@ PATH_REPLACEMENTS = [
     ("ch08_actor_resp_channel.rs", "8.1-building-basic-actor/8.1-building-basic-actor-demo.rs"),
     ("8.1-custom-actor/", "8.1-building-basic-actor/"),
     ("ch09_retry_backoff.rs", "9.5-retry-pattern/9.5-retry-pattern-backoff-demo.rs"),
-    ("ch10_std_tcp_nonblocking.rs", "10.2-std-runtime/10.2-std-runtime-tcp-nonblocking-demo.rs"),
-    ("ch10_noop_waker_block_on.rs", "10.2-std-runtime/10.2-std-runtime-noop-waker-demo.rs"),
+    ("9.1-isolated-module/", "9.1-building-isolated-module/"),
+    ("10.1-basics/", "10.1-setting-up-basics/"),
+    ("10.2-std-runtime/", "10.2-building-std-async-runtime/"),
+    ("10.2-std-runtime-noop-waker-demo.rs", "10.2-building-std-async-runtime-noop-waker-demo.rs"),
+    ("10.2-std-runtime-tcp-nonblocking-demo.rs", "10.2-building-std-async-runtime-tcp-nonblocking-demo.rs"),
+    ("ch10_std_tcp_nonblocking.rs", "10.2-building-std-async-runtime/10.2-building-std-async-runtime-tcp-nonblocking-demo.rs"),
+    ("ch10_noop_waker_block_on.rs", "10.2-building-std-async-runtime/10.2-building-std-async-runtime-noop-waker-demo.rs"),
     ("ch11_timeout_deadlock_probe.rs", "11.3-deadlock-probe/11.3-deadlock-probe-timeout-demo.rs"),
     ("同目录 ``demo.rs``", "各小节 `X.Y-slug/` 下 `*-stdlib-demo.rs`"),
-    ("本目录 `ch10_std_tcp_nonblocking.rs`", "`10.2-std-runtime/10.2-std-runtime-tcp-nonblocking-demo.rs`"),
-    ("本目录 `ch10_noop_waker_block_on.rs`", "`10.2-std-runtime/10.2-std-runtime-noop-waker-demo.rs`"),
+    ("本目录 `ch10_std_tcp_nonblocking.rs`", "`10.2-building-std-async-runtime/10.2-building-std-async-runtime-tcp-nonblocking-demo.rs`"),
+    ("本目录 `ch10_noop_waker_block_on.rs`", "`10.2-building-std-async-runtime/10.2-building-std-async-runtime-noop-waker-demo.rs`"),
     ("3.6-custom-join-macro/3.1-async-queue-stdlib-demo.rs", "3.1-async-queue/3.1-async-queue-stdlib-demo.rs"),
     ("4.5-mio-poll/4.1-executor-connector-stdlib-demo.rs", "4.1-executor-connector/4.1-executor-connector-stdlib-demo.rs"),
     ("5.3-simple-generator/5.1-coroutines-intro-stdlib-demo.rs", "5.1-coroutines-intro/5.1-coroutines-intro-stdlib-demo.rs"),
-    ("9.5-retry-pattern/9.1-isolated-module-stdlib-demo.rs", "9.1-isolated-module/9.1-isolated-module-stdlib-demo.rs"),
-    ("10.2-std-runtime/10.1-basics-stdlib-demo.rs", "10.1-basics/10.1-basics-stdlib-demo.rs"),
+    ("9.5-retry-pattern/9.1-isolated-module-stdlib-demo.rs", "9.1-building-isolated-module/9.1-building-isolated-module-stdlib-demo.rs"),
+    ("10.2-std-runtime/10.1-basics-stdlib-demo.rs", "10.1-setting-up-basics/10.1-setting-up-basics-stdlib-demo.rs"),
     ("11.3-deadlock-probe/11.1-sync-testing-stdlib-demo.rs", "11.1-sync-testing/11.1-sync-testing-stdlib-demo.rs"),
 ]
 
@@ -189,68 +194,20 @@ def split_ch08():
 
 def split_ch09():
     ch = ROOT / "ch09_async_design_patterns"
-    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
-    s2 = p.get("2. 核心异步模式详解", "")
-    mapping = {
-        "9.1-isolated-module.md": (p.get("_preamble", ""), p.get("1. 构建隔离模块 (Building an Isolated Module)", "")),
-        "9.2-waterfall.md": (section_slice(s2, "### 2.1", "### 2.2"),),
-        "9.3-decorator.md": (section_slice(s2, "### 2.2", "### 2.3"),),
-        "9.4-state-machine.md": (section_slice(s2, "### 2.3", "### 2.4"),),
-        "9.5-retry-pattern.md": (
-            section_slice(s2, "### 2.4", "### 2.5"),
-            p.get("3. 示例代码：重试模式逻辑", ""),
-        ),
-        "9.6-circuit-breaker.md": (
-            section_slice(s2, "### 2.5", None),
-            p.get("总结", ""),
-            p.get("4. 配套代码说明（本仓库）", ""),
-        ),
-    }
-    for k, v in mapping.items():
-        write_section(ch, k, v)
-    write_index(
-        ch,
-        "第 9 章 — 学习笔记索引",
-        [
-            ("9.1", "9.1-isolated-module.md", "9.1-isolated-module"),
-            ("9.2", "9.2-waterfall.md", ""),
-            ("9.3", "9.3-decorator.md", ""),
-            ("9.4", "9.4-state-machine.md", ""),
-            ("9.5", "9.5-retry-pattern.md", "9.5-retry-pattern"),
-            ("9.6", "9.6-circuit-breaker.md", ""),
-        ],
-    )
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "9.7-summary.md" in src and "共 7 节" in src:
+        print("Ch09 already on 7-section layout, skip")
+        return
+    print("Ch09: maintain 9.1..9.7 md manually")
 
 
 def split_ch10():
     ch = ROOT / "ch10_dependency_free_async_server"
-    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
-    mapping = {
-        "10.1-basics.md": (p.get("_preamble", ""), p.get("1. 核心目标：解密异步底层逻辑", "")),
-        "10.2-std-runtime.md": (p.get("2. 唤醒器与执行器的从零实现", ""),),
-        "10.3-waker-executor.md": (p.get("3. 核心异步原语的构建", ""),),
-        "10.4-server-architecture.md": (p.get("4. 服务器架构设计 (Server Architecture)", ""),),
-        "10.5-optimize-test.md": (p.get("5. 项目优化与测试", ""),),
-        "10.6-gotchas-summary.md": (
-            p.get("6. 常见陷阱与建议 (Gotchas)", ""),
-            p.get("总结", ""),
-            p.get("7. 配套代码说明（本仓库）", ""),
-        ),
-    }
-    for k, v in mapping.items():
-        write_section(ch, k, v)
-    write_index(
-        ch,
-        "第 10 章 — 学习笔记索引",
-        [
-            ("10.1", "10.1-basics.md", "10.1-basics"),
-            ("10.2", "10.2-std-runtime.md", "10.2-std-runtime"),
-            ("10.3", "10.3-waker-executor.md", ""),
-            ("10.4", "10.4-server-architecture.md", ""),
-            ("10.5", "10.5-optimize-test.md", ""),
-            ("10.6", "10.6-gotchas-summary.md", ""),
-        ],
-    )
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "10.5-summary.md" in src and "共 5 节" in src:
+        print("Ch10 already on 5-section layout, skip")
+        return
+    print("Ch10: maintain 10.1..10.5 md manually")
 
 
 def split_ch11():

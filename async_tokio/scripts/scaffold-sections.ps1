@@ -47,12 +47,7 @@ Ensure-Section (Join-Path $root "ch04_network_io_runtime") "4.5-mio-poll" @(@{ F
 Ensure-Section (Join-Path $root "ch05_coroutines_generators") "5.3-simple-generator" @(@{ From = "ch05_resume_state_machine.rs"; To = "5.3-simple-generator-state-machine-demo.rs" }, @{ From = "demo.rs"; To = "5.1-coroutines-intro-stdlib-demo.rs" })
 # ch06: 8 sections — demos under 6.1 / 6.2 / 6.3 / 6.4 (maintained manually)
 # ch07/ch08: 5/6 sections — demos maintained manually under 7.1 / 7.2 / 7.4 / 8.1
-Ensure-Section (Join-Path $root "ch09_async_design_patterns") "9.5-retry-pattern" @(@{ From = "ch09_retry_backoff.rs"; To = "9.5-retry-pattern-backoff-demo.rs" }, @{ From = "demo.rs"; To = "9.1-isolated-module-stdlib-demo.rs" })
-Ensure-Section (Join-Path $root "ch10_dependency_free_async_server") "10.2-std-runtime" @(
-  @{ From = "ch10_std_tcp_nonblocking.rs"; To = "10.2-std-runtime-tcp-nonblocking-demo.rs" },
-  @{ From = "ch10_noop_waker_block_on.rs"; To = "10.2-std-runtime-noop-waker-demo.rs" },
-  @{ From = "demo.rs"; To = "10.1-basics-stdlib-demo.rs" }
-)
+# ch09/ch10: 7/5 sections — demos under 9.1 / 9.5 / 10.1 / 10.2 (maintained manually)
 Ensure-Section (Join-Path $root "ch11_async_testing_debugging") "11.3-deadlock-probe" @(@{ From = "ch11_timeout_deadlock_probe.rs"; To = "11.3-deadlock-probe-timeout-demo.rs" }, @{ From = "demo.rs"; To = "11.1-sync-testing-stdlib-demo.rs" })
 
 # stub md for ch01 sections if missing

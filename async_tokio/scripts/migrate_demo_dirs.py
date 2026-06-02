@@ -15,11 +15,11 @@ MOVES: list[tuple[str, str]] = [
     ),
     (
         "ch09_async_design_patterns/9.5-retry-pattern/9.1-isolated-module-stdlib-demo.rs",
-        "ch09_async_design_patterns/9.1-isolated-module/9.1-isolated-module-stdlib-demo.rs",
+        "ch09_async_design_patterns/9.1-building-isolated-module/9.1-building-isolated-module-stdlib-demo.rs",
     ),
     (
-        "ch10_dependency_free_async_server/10.2-std-runtime/10.1-basics-stdlib-demo.rs",
-        "ch10_dependency_free_async_server/10.1-basics/10.1-basics-stdlib-demo.rs",
+        "ch10_dependency_free_async_server/10.2-building-std-async-runtime/10.1-basics-stdlib-demo.rs",
+        "ch10_dependency_free_async_server/10.1-setting-up-basics/10.1-setting-up-basics-stdlib-demo.rs",
     ),
     (
         "ch11_async_testing_debugging/11.3-deadlock-probe/11.1-sync-testing-stdlib-demo.rs",

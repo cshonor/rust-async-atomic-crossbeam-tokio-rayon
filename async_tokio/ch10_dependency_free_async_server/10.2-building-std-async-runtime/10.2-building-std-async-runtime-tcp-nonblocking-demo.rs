@@ -1,4 +1,4 @@
-//! ch10：标准库非阻塞 `TcpListener` + `WouldBlock` 轮询（与书中「无依赖网络」一节对照）。
+//! §10.2：标准库非阻塞 `TcpListener` + `WouldBlock` 轮询。
 //!
 //! 仅使用 `std`；`thread::sleep` 仅作教学轮询间隔，生产应换为 epoll/IOCP 等驱动。
 use std::io::{self, Read, Write};

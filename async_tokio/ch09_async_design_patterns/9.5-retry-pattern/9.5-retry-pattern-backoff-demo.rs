@@ -1,4 +1,4 @@
-//! ch09：重试 + 指数退避（与 `async_tokio/ch09_async_design_patterns/本章学习笔记.md` §3 对应）。
+//! §9.5：重试 + 指数退避。
 //!
 //! 书中常用 `Duration::from_secs(1 << i)`；此处改为毫秒级，避免本地演示等待过久。
 use std::sync::atomic::{AtomicU32, Ordering};

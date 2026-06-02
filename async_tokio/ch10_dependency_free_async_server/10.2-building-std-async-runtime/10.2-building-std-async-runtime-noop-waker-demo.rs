@@ -1,4 +1,4 @@
-//! ch10：最小 `RawWaker` + `block_on`（仅 `std`；与书中「手动 Waker / 轮询」对照）。
+//! §10.2：最小 `RawWaker` + `block_on`（仅 `std`）。
 //!
 //! `Waker` 为 no-op：`Pending` 时由外层循环 `yield_now` 再次 `poll`——仅用于理解，非高效调度。
 use std::future::Future;
