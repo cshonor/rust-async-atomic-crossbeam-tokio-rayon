@@ -8,8 +8,8 @@
 |------|------|------|
 | Stage 1 | `stage01_network_basic` | 书 Ch1 网络理论打底（[Ch01 笔记](stage01_network_basic/notes/Ch01-客户端服务器网络简介-学习笔记.md)） |
 | Stage 2 | `stage02_rust_basis` | 书 Ch2 共 **10 节**（[索引](stage02_rust_basis/本章学习笔记.md) · [精读](stage02_rust_basis/notes/Ch02-Rust及其生态系统简介-学习笔记.md)） |
-| Stage 3 | `stage03_std_tcp_udp` | 书 Ch3 **`std::net` TCP/UDP（[Ch03 笔记](stage03_std_tcp_udp/notes/Ch03-使用Rust进行TCP和UDP编程-学习笔记.md)）** |
-| Stage 4 | `stage04_serde_parse` | 书 Ch4 Serde / nom 解析（[Ch04 笔记](stage04_serde_parse/notes/Ch04-数据序列化反序列化与解析-学习笔记.md)） |
+| Stage 3 | `stage03_std_tcp_udp` | 书 Ch3 共 **5 节**（[索引](stage03_std_tcp_udp/本章学习笔记.md) · [精读](stage03_std_tcp_udp/notes/Ch03-使用Rust进行TCP和UDP编程-学习笔记.md)） |
+| Stage 4 | `stage04_serde_parse` | 书 Ch4 共 **4 节**（[索引](stage04_serde_parse/本章学习笔记.md) · [精读](stage04_serde_parse/notes/Ch04-数据序列化反序列化与解析-学习笔记.md)） |
 | Stage 5 | `stage05_app_protocol` | 书 Ch5 RPC/gRPC、SMTP、FTP/TFTP（[Ch05 笔记](stage05_app_protocol/notes/Ch05-应用层协议-学习笔记.md)） |
 | Stage 6 | `stage06_http_programming` | 书 Ch6 Hyper / Rocket / reqwest（[Ch06 笔记](stage06_http_programming/notes/Ch06-在互联网上进行HTTP通信-学习笔记.md)） |
 | Stage 7 | `stage07_tokio_async_net` | 书 Ch7 Tokio 异步网络 **TOP1**（[Ch07 笔记](stage07_tokio_async_net/notes/Ch07-使用Tokio进行异步网络编程-学习笔记.md) · [`async_tokio/`](../async_tokio/)） |
