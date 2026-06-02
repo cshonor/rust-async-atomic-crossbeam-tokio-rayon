@@ -1,4 +1,4 @@
-//! ch11：用 `timeout` 检测「过久未完成」的路径（教学；与书中死锁/卡死探测思路一致）。
+//! §11.3：用 `timeout` 检测「过久未完成」的路径（教学；死锁探测思路）。
 use std::time::Duration;
 
 use tokio::time::{sleep, timeout};

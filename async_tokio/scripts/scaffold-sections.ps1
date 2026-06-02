@@ -48,7 +48,7 @@ Ensure-Section (Join-Path $root "ch05_coroutines_generators") "5.3-simple-genera
 # ch06: 8 sections — demos under 6.1 / 6.2 / 6.3 / 6.4 (maintained manually)
 # ch07/ch08: 5/6 sections — demos maintained manually under 7.1 / 7.2 / 7.4 / 8.1
 # ch09/ch10: 7/5 sections — demos under 9.1 / 9.5 / 10.1 / 10.2 (maintained manually)
-Ensure-Section (Join-Path $root "ch11_async_testing_debugging") "11.3-deadlock-probe" @(@{ From = "ch11_timeout_deadlock_probe.rs"; To = "11.3-deadlock-probe-timeout-demo.rs" }, @{ From = "demo.rs"; To = "11.1-sync-testing-stdlib-demo.rs" })
+# ch11: 8 sections — demos under 11.1 / 11.3 (maintained manually)
 
 # stub md for ch01 sections if missing
 @(

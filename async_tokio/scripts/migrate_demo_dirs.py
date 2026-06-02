@@ -22,8 +22,8 @@ MOVES: list[tuple[str, str]] = [
         "ch10_dependency_free_async_server/10.1-setting-up-basics/10.1-setting-up-basics-stdlib-demo.rs",
     ),
     (
-        "ch11_async_testing_debugging/11.3-deadlock-probe/11.1-sync-testing-stdlib-demo.rs",
-        "ch11_async_testing_debugging/11.1-sync-testing/11.1-sync-testing-stdlib-demo.rs",
+        "ch11_async_testing_debugging/11.3-testing-for-deadlocks/11.1-sync-testing-stdlib-demo.rs",
+        "ch11_async_testing_debugging/11.1-performing-basic-sync-testing/11.1-performing-basic-sync-testing-stdlib-demo.rs",
     ),
     (
         "ch03_custom_task_queue/3.6-custom-join-macro/3.1-async-queue-stdlib-demo.rs",

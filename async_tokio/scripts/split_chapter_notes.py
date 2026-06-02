@@ -42,7 +42,10 @@ PATH_REPLACEMENTS = [
     ("10.2-std-runtime-tcp-nonblocking-demo.rs", "10.2-building-std-async-runtime-tcp-nonblocking-demo.rs"),
     ("ch10_std_tcp_nonblocking.rs", "10.2-building-std-async-runtime/10.2-building-std-async-runtime-tcp-nonblocking-demo.rs"),
     ("ch10_noop_waker_block_on.rs", "10.2-building-std-async-runtime/10.2-building-std-async-runtime-noop-waker-demo.rs"),
-    ("ch11_timeout_deadlock_probe.rs", "11.3-deadlock-probe/11.3-deadlock-probe-timeout-demo.rs"),
+    ("ch11_timeout_deadlock_probe.rs", "11.3-testing-for-deadlocks/11.3-testing-for-deadlocks-timeout-demo.rs"),
+    ("11.1-sync-testing/", "11.1-performing-basic-sync-testing/"),
+    ("11.3-deadlock-probe/", "11.3-testing-for-deadlocks/"),
+    ("11.4-future-polling.md", "11.7-fine-grained-future-testing.md"),
     ("同目录 ``demo.rs``", "各小节 `X.Y-slug/` 下 `*-stdlib-demo.rs`"),
     ("本目录 `ch10_std_tcp_nonblocking.rs`", "`10.2-building-std-async-runtime/10.2-building-std-async-runtime-tcp-nonblocking-demo.rs`"),
     ("本目录 `ch10_noop_waker_block_on.rs`", "`10.2-building-std-async-runtime/10.2-building-std-async-runtime-noop-waker-demo.rs`"),
@@ -51,7 +54,7 @@ PATH_REPLACEMENTS = [
     ("5.3-simple-generator/5.1-coroutines-intro-stdlib-demo.rs", "5.1-coroutines-intro/5.1-coroutines-intro-stdlib-demo.rs"),
     ("9.5-retry-pattern/9.1-isolated-module-stdlib-demo.rs", "9.1-building-isolated-module/9.1-building-isolated-module-stdlib-demo.rs"),
     ("10.2-std-runtime/10.1-basics-stdlib-demo.rs", "10.1-setting-up-basics/10.1-setting-up-basics-stdlib-demo.rs"),
-    ("11.3-deadlock-probe/11.1-sync-testing-stdlib-demo.rs", "11.1-sync-testing/11.1-sync-testing-stdlib-demo.rs"),
+    ("11.3-deadlock-probe/11.1-sync-testing-stdlib-demo.rs", "11.1-performing-basic-sync-testing/11.1-performing-basic-sync-testing-stdlib-demo.rs"),
 ]
 
 
@@ -212,30 +215,11 @@ def split_ch10():
 
 def split_ch11():
     ch = ROOT / "ch11_async_testing_debugging"
-    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
-    mapping = {
-        "11.1-sync-testing.md": (p.get("_preamble", ""), section_slice(p.get("1. 核心知识点与工具", ""), "## 1.", "Mocking") or p.get("1. 核心知识点与工具", "")),
-        "11.2-async-mocking.md": ("## 11.2 Async Mocking\n\n", section_slice(p.get("1. 核心知识点与工具", ""), "Mocking", None)),
-        "11.3-deadlock-probe.md": (section_slice(p.get("1. 核心知识点与工具", ""), "死锁", None), p.get("4. 常见陷阱与建议 (Gotchas)", "")),
-        "11.4-future-polling.md": (
-            p.get("2. 细粒度的 Future 轮询测试", ""),
-            p.get("3. 示例代码：使用 mockall 模拟异步过程", ""),
-            p.get("总结", ""),
-            p.get("5. 配套代码说明（本仓库）", ""),
-        ),
-    }
-    for k, v in mapping.items():
-        write_section(ch, k, v)
-    write_index(
-        ch,
-        "第 11 章 — 学习笔记索引",
-        [
-            ("11.1", "11.1-sync-testing.md", "11.1-sync-testing"),
-            ("11.2", "11.2-async-mocking.md", ""),
-            ("11.3", "11.3-deadlock-probe.md", "11.3-deadlock-probe"),
-            ("11.4", "11.4-future-polling.md", ""),
-        ],
-    )
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "11.8-summary.md" in src and "共 8 节" in src:
+        print("Ch11 already on 8-section layout, skip")
+        return
+    print("Ch11: maintain 11.1..11.8 md manually")
 
 
 def main() -> None:
