@@ -1,23 +1,20 @@
 # Stage 05 — 应用层协议
 
-**对应书籍**：第 5 章 — *Application Layer Protocols*
+**对应书籍**：第 5 章（§5.1～5.4）
 
-## 章节目录（原书 4 节）
+## 结构
 
-| 书 § | 英文 | 中文 |
-|------|------|------|
-| 5.1 | Introduction to RPC | RPC 简介 |
-| 5.2 | Introduction to SMTP | SMTP 简介 |
-| 5.3 | Introduction to FTP and TFTP | FTP 与 TFTP 简介 |
-| 5.4 | Summary | 总结 |
-
-## 学习定位
-
-**按需浅读** — 优先 [stage03](../stage03_std_tcp_udp/) / [stage04](../stage04_serde_parse/) / [stage07](../stage07_tokio_async_net/)
-
-## 笔记
-
-| 资料 | 说明 |
+| 类型 | 路径 |
 |------|------|
-| [本章学习笔记.md](./本章学习笔记.md) | §5.1～5.4 索引 |
-| [Ch05 精读](notes/Ch05-应用层协议-学习笔记.md) | 正文 |
+| 章索引 | [本章学习笔记.md](./本章学习笔记.md) |
+| 按节笔记 | `5.1-introduction-to-rpc.md` … `5.4-summary.md` |
+| 贯通稿 | [notes/Ch05-…](./notes/Ch05-应用层协议-学习笔记.md) |
+| Demo | [Cargo.toml](./Cargo.toml) |
+
+```bash
+cargo run --manifest-path rust_network_programming/stage05_app_protocol/Cargo.toml --bin demo_5_1_rpc_server
+cargo run --manifest-path rust_network_programming/stage05_app_protocol/Cargo.toml --bin demo_5_1_rpc_client
+cargo run --manifest-path rust_network_programming/stage05_app_protocol/Cargo.toml --bin demo_5_2_smtp_build
+```
+
+**5.1** demo 为 JSON-RPC 概念演示；完整 **gRPC/tonic**、**rust-ftp** 按书另建项目。
