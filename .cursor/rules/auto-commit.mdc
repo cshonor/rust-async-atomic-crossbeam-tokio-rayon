@@ -1,0 +1,31 @@
+---
+description: After completing substantive repo changes, create a git commit without waiting to be asked
+alwaysApply: true
+---
+
+# 自动提交（本仓库）
+
+用户已要求：**完成任务后自动 `git commit`**，无需再等「提交」指令。
+
+## 何时提交
+
+在**完成一轮有意义的修改**后提交，例如：
+
+- 写完/更新笔记、文档、脚本
+- 修 bug、重构、对齐目录
+- 新增或更新 demo 代码
+
+**不要**为以下情况单独提交：仅回答问答、只读浏览、用户明确说「先别提交」、或工作区无变更。
+
+## 提交流程
+
+1. 并行执行：`git status`、`git diff`（含 staged）、`git log -3 --oneline`
+2. 不写 `.env`、密钥等敏感文件；若有则警告并排除
+3. `git add` 相关文件 → `git commit`，消息 1～2 句、说明 **why**
+4. `git status` 确认成功
+5. **不要** `git push`，除非用户明确要求
+6. 遵守 Git 安全协议：不改 git config、不用 `--no-verify`、不 force push main，amend 仅符合用户全局 amend 规则时
+
+## 提交后
+
+在回复末尾简短给出 commit hash 与一行说明；无变更则跳过提交。
