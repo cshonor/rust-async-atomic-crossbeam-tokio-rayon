@@ -1,6 +1,6 @@
-//! 第 4 章
+//! 第 4 章 — 自旋锁（§4.1～4.3 同一实现递进）
 
-#[path = "4.1-spin-lock/4.1-spin-lock-demo.rs"]
+#[path = "4.1-minimal-implementation/4.1-minimal-implementation-demo.rs"]
 pub mod spin_lock;
 
 pub fn demo() {
