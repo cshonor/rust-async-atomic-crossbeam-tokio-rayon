@@ -39,8 +39,10 @@ stage06_http_programming/
 | 阻塞 Socket | `stage03_std_tcp_udp` | Ch3 | §3.1～3.5 + demo 已搭 |
 | Serde/解析 | `stage04_serde_parse` | Ch4 | §4.1～4.4 + demo 已搭 |
 | 应用协议 | `stage05_app_protocol` | Ch5 | §5.1～5.4 + demo 已搭 |
-| HTTP | `stage06_http_programming` | Ch6 | §6.1～6.4 + demo 已搭 |
-| 其余 | `stage02`、`stage07`～`stage09` | Ch2、Ch7～附录 | 先保留 `notes/` 贯通稿 |
+| Tokio | `stage07_tokio_async_net` | Ch7 | §7.1～7.3 + demo 已搭 |
+| 安全 | `stage08_network_security` | Ch8 | §8.1～8.3 + demo 已搭 |
+| 附录 | `stage09_appendix_deep` | 附录 | §9.1～9.6 + demo 已搭 |
+| 待拆 | `stage02`、`stage01` | Ch2、Ch1 | 贯通稿 + 索引 |
 
 **禁止**：在未要求时改写 `notes/` 贯通稿正文；新增内容放在 `X.Y-slug.md` 与 demo 目录。
 
@@ -52,9 +54,14 @@ stage06_http_programming/
 # Ch3
 cargo run --manifest-path rust_network_programming/stage03_std_tcp_udp/Cargo.toml --bin demo_3_1_tcp_echo_server
 
-# Ch6
-cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_1_raw_http
-cargo run --manifest-path rust_network_programming/stage06_http_programming/Cargo.toml --bin demo_6_3_reqwest_get
+# Ch7
+cargo run --manifest-path rust_network_programming/stage07_tokio_async_net/Cargo.toml --bin demo_7_2_echo_server
+
+# Ch8
+cargo run --manifest-path rust_network_programming/stage08_network_security/Cargo.toml --bin demo_8_2_ring_x25519
+
+# Ch9
+cargo run --manifest-path rust_network_programming/stage09_appendix_deep/Cargo.toml --bin demo_9_4_pest
 ```
 
 `6.2` Rocket 依赖 nightly/数据库栈，demo 目录暂留占位，笔记中说明本地按书配置即可。

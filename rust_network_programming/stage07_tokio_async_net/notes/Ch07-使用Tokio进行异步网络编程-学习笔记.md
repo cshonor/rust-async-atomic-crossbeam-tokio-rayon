@@ -1,5 +1,8 @@
 # 第 7 章 — 使用 Tokio 进行异步网络编程（Asynchronous Network Programming Using Tokio）
 
+> **按节学习（笔记 + demo）**：[本章学习笔记.md](../本章学习笔记.md) → `7.1-looking-into-the-future.md` … `7.3-conclusion.md`  
+> 下文为**全章贯通稿**。
+
 > 《Network Programming with Rust》· 全书对你价值最高的一章  
 > 阶段目录：[stage07_tokio_async_net](../README.md) · 阻塞对照：[Ch03](../../stage03_std_tcp_udp/notes/Ch03-使用Rust进行TCP和UDP编程-学习笔记.md) · **主线笔记**：仓库 [`async_tokio/`](../../../async_tokio/)
 

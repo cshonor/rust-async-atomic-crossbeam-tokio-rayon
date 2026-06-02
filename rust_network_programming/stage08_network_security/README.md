@@ -1,36 +1,19 @@
 # Stage 08 — 网络安全与生产加固
 
-**对应书籍**：第 8 章 — *Security*（安全）· §8.1～8.3
+**对应书籍**：第 8 章（§8.1～8.3）
 
-## 章节目录（原书）
+## 结构
 
-| 书 § | 主题 |
+| 类型 | 路径 |
 |------|------|
-| 8.1 | Securing the web（含 Letsencrypt / OpenSSL / Tokio TLS 三个子节） |
-| 8.2 | Cryptography using ring |
-| 8.3 | Summary |
+| 章索引 | [本章学习笔记.md](./本章学习笔记.md) |
+| 按节笔记 | `8.1-securing-the-web.md` … `8.3-summary.md` |
+| 贯通稿 | [notes/Ch08-…](./notes/Ch08-安全-学习笔记.md) |
+| Demo | [Cargo.toml](./Cargo.toml) |
 
-## 学习定位
+```bash
+cargo run --manifest-path rust_network_programming/stage08_network_security/Cargo.toml --bin demo_8_1_https_get
+cargo run --manifest-path rust_network_programming/stage08_network_security/Cargo.toml --bin demo_8_2_ring_x25519
+```
 
-- **生产进阶**：本地实验可晚于 stage03、07。  
-- 对外服务前再拉高优先级。
-
-## 优先级与代码
-
-| 项目 | 建议 |
-|------|------|
-| 优先级 | **中（上线前 → 高）** |
-| 是否必写 Demo | **按需**（`reqwest` + rustls GET 或 tokio-rustls echo） |
-
-## 笔记
-
-| 资料 | 说明 |
-|------|------|
-| **[本章学习笔记](本章学习笔记.md)** | §8.1～8.3 索引表 |
-| **[Ch08 安全 — 学习笔记](notes/Ch08-安全-学习笔记.md)** | 全书第 8 章精读 |
-
-## 学习检查
-
-- [ ] 能说明加密 vs 证书校验各解决什么  
-- [ ] 知道开发自签名与生产 CA 签发的区别  
-- [ ] 知道 PEM 与 PKCS#12 的常见用途差异  
+上线前再深挖；完整 OpenSSL 证书生成 / tokio-rustls 服务按书另建项目。
