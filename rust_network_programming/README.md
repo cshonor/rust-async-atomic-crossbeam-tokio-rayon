@@ -6,7 +6,7 @@
 
 | 阶段 | 目录 | 定位 |
 |------|------|------|
-| Stage 1 | `stage01_network_basic` | 网络理论打底（多为概念，可不写代码） |
+| Stage 1 | `stage01_network_basic` | 书 Ch1 网络理论打底（[Ch01 笔记](stage01_network_basic/notes/Ch01-客户端服务器网络简介-学习笔记.md)） |
 | Stage 2 | `stage02_rust_basis` | Rust 前置：快速查漏补缺 |
 | Stage 3 | `stage03_std_tcp_udp` | **`std` 同步 TCP/UDP（全书地基之一）** |
 | Stage 4 | `stage04_serde_parse` | 序列化与二进制解析（工程必备） |
