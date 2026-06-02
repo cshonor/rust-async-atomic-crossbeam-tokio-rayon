@@ -13,8 +13,8 @@
 | Stage 5 | `stage05_app_protocol` | 书 Ch5 共 **4 节**（[索引](stage05_app_protocol/本章学习笔记.md) · [精读](stage05_app_protocol/notes/Ch05-应用层协议-学习笔记.md)） |
 | Stage 6 | `stage06_http_programming` | 书 Ch6 共 **4 节**（[索引](stage06_http_programming/本章学习笔记.md) · [精读](stage06_http_programming/notes/Ch06-在互联网上进行HTTP通信-学习笔记.md)） |
 | Stage 7 | `stage07_tokio_async_net` | 书 Ch7 共 **3 主节** **TOP1**（[索引](stage07_tokio_async_net/本章学习笔记.md) · [精读](stage07_tokio_async_net/notes/Ch07-使用Tokio进行异步网络编程-学习笔记.md) · [`async_tokio/`](../async_tokio/)） |
-| Stage 8 | `stage08_network_security` | 书 Ch8 TLS/证书/rustls（[Ch08 笔记](stage08_network_security/notes/Ch08-安全-学习笔记.md)） |
-| Stage 9 | `stage09_appendix_deep` | 书 **附录**（[附录笔记](stage09_appendix_deep/notes/附录-扩展与替代方案-学习笔记.md)）协程/rayon/pest 等 |
+| Stage 8 | `stage08_network_security` | 书 Ch8 共 **3 主节**（[索引](stage08_network_security/本章学习笔记.md) · [精读](stage08_network_security/notes/Ch08-安全-学习笔记.md)） |
+| Stage 9 | `stage09_appendix_deep` | 书 **附录** 共 **6 主节**（[索引](stage09_appendix_deep/本章学习笔记.md) · [精读](stage09_appendix_deep/notes/Ch09-附录-学习笔记.md)） |
 
 ## 推荐学习顺序（减少弯路）
 

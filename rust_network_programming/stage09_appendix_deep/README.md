@@ -1,15 +1,18 @@
 # Stage 09 — 附录与底层拔高
 
-**对应书籍**：**附录（Appendix）** — 扩展与替代方案（资料中或称作「第 9 章」）
+**对应书籍**：**Appendix**（附录；资料中常称第 9 章）· §9.1～9.6
 
-## 核心内容
+## 章节目录（原书）
 
-1. 协程 / 生成器（无栈 vs 有栈、nightly `yield`）  
-2. **`may`** / `may_minihttp`（有栈协程 HTTP）  
-3. **`futures-await`** → 现代 **`async/await`**  
-4. **`rayon`** 数据并行  
-5. **`pest`** vs Ch4 **`nom`**  
-6. **`bitflags`**、**`url`**  
+| 书 § | 主题 |
+|------|------|
+| 9.1 | Introduction to coroutines and generators |
+| 9.1.1 | How May handles coroutines |
+| 9.2 | Awaiting the future |
+| 9.3 | Data parallelism |
+| 9.4 | Parsing using Pest |
+| 9.5 | Miscellaneous utilities（bitflags、url） |
+| 9.6 | Summary |
 
 ## 学习定位
 
@@ -27,7 +30,8 @@
 
 | 资料 | 说明 |
 |------|------|
-| **[附录 — 学习笔记](notes/附录-扩展与替代方案-学习笔记.md)** | 全书附录精读 |
+| **[本章学习笔记](本章学习笔记.md)** | §9.1～9.6 索引表 |
+| **[Ch09 附录 — 学习笔记](notes/Ch09-附录-学习笔记.md)** | 全书附录精读 |
 
 ## 建议活动
 

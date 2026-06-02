@@ -1,14 +1,14 @@
 # Stage 08 — 网络安全与生产加固
 
-**对应书籍**：第 8 章 — *Security*（安全）
+**对应书籍**：第 8 章 — *Security*（安全）· §8.1～8.3
 
-## 核心内容
+## 章节目录（原书）
 
-1. HTTPS/TLS、CA、X.509、握手与身份验证  
-2. **Let's Encrypt**、ACME、**rustls** / webpki 客户端  
-3. **rust-openssl**：证书字段、自签名生成  
-4. **Tokio + TLS**（书中 `tokio-tls`、PKCS12；现代 `tokio-rustls`）  
-5. **`ring`**、X25519、Diffie-Hellman 密钥交换  
+| 书 § | 主题 |
+|------|------|
+| 8.1 | Securing the web（含 Letsencrypt / OpenSSL / Tokio TLS 三个子节） |
+| 8.2 | Cryptography using ring |
+| 8.3 | Summary |
 
 ## 学习定位
 
@@ -26,6 +26,7 @@
 
 | 资料 | 说明 |
 |------|------|
+| **[本章学习笔记](本章学习笔记.md)** | §8.1～8.3 索引表 |
 | **[Ch08 安全 — 学习笔记](notes/Ch08-安全-学习笔记.md)** | 全书第 8 章精读 |
 
 ## 学习检查
