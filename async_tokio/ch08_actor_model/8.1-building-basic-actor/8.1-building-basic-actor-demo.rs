@@ -1,4 +1,4 @@
-//! ch08：Actor 风格邮箱 + `oneshot` 请求—响应（与 `async_tokio/ch08_actor_model/本章学习笔记.md` §4 对应）。
+//! §8.1：Actor 邮箱 + `oneshot` 请求—响应。
 use tokio::sync::{mpsc, oneshot};
 
 struct RespMessage {

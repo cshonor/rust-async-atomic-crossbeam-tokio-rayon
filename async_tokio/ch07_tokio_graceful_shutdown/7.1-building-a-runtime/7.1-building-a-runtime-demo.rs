@@ -1,4 +1,4 @@
-//! ch07：`Builder::new_multi_thread` 线程钩子 + 阻塞线程上限（教学向最小示例）。
+//! §7.1：`Builder::new_multi_thread` 线程钩子 + `max_blocking_threads`（教学向最小示例）。
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 

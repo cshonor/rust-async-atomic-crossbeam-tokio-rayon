@@ -45,14 +45,8 @@ $ch2 = Join-Path $root "ch02_async_rust_core"
 Ensure-Section (Join-Path $root "ch03_custom_task_queue") "3.6-custom-join-macro" @(@{ From = "ch03_join_macro_flume.rs"; To = "3.6-custom-join-macro-flume-demo.rs" }, @{ From = "demo.rs"; To = "3.1-async-queue-stdlib-demo.rs" })
 Ensure-Section (Join-Path $root "ch04_network_io_runtime") "4.5-mio-poll" @(@{ From = "ch04_mio_poll_listener.rs"; To = "4.5-mio-poll-listener-demo.rs" }, @{ From = "demo.rs"; To = "4.1-executor-connector-stdlib-demo.rs" })
 Ensure-Section (Join-Path $root "ch05_coroutines_generators") "5.3-simple-generator" @(@{ From = "ch05_resume_state_machine.rs"; To = "5.3-simple-generator-state-machine-demo.rs" }, @{ From = "demo.rs"; To = "5.1-coroutines-intro-stdlib-demo.rs" })
-Ensure-Section (Join-Path $root "ch06_reactive_async_streams") "6.1-heater-system" @(@{ From = "ch06_callback.rs"; To = "6.1-heater-system-callback-demo.rs" }, @{ From = "ch06_heater_display.rs"; To = "6.1-heater-system-display-demo.rs" }, @{ From = "demo.rs"; To = "6.1-heater-system-stdlib-demo.rs" })
-Ensure-Section (Join-Path $root "ch07_tokio_graceful_shutdown") "7.4-graceful-shutdown" @(
-  @{ From = "ch07_ctrl_c_shutdown.rs"; To = "7.4-graceful-shutdown-ctrl-c-demo.rs" },
-  @{ From = "ch07_local_pool_pinned.rs"; To = "7.2-local-pool-pinned-demo.rs" },
-  @{ From = "ch07_runtime_builder_hooks.rs"; To = "7.1-runtime-builder-demo.rs" },
-  @{ From = "demo.rs"; To = "7.1-runtime-builder-stdlib-demo.rs" }
-)
-Ensure-Section (Join-Path $root "ch08_actor_model") "8.1-custom-actor" @(@{ From = "ch08_actor_resp_channel.rs"; To = "8.1-custom-actor-resp-channel-demo.rs" }, @{ From = "demo.rs"; To = "8.1-custom-actor-stdlib-demo.rs" })
+# ch06: 8 sections — demos under 6.1 / 6.2 / 6.3 / 6.4 (maintained manually)
+# ch07/ch08: 5/6 sections — demos maintained manually under 7.1 / 7.2 / 7.4 / 8.1
 Ensure-Section (Join-Path $root "ch09_async_design_patterns") "9.5-retry-pattern" @(@{ From = "ch09_retry_backoff.rs"; To = "9.5-retry-pattern-backoff-demo.rs" }, @{ From = "demo.rs"; To = "9.1-isolated-module-stdlib-demo.rs" })
 Ensure-Section (Join-Path $root "ch10_dependency_free_async_server") "10.2-std-runtime" @(
   @{ From = "ch10_std_tcp_nonblocking.rs"; To = "10.2-std-runtime-tcp-nonblocking-demo.rs" },

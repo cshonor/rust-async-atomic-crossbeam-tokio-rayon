@@ -21,12 +21,19 @@ PATH_REPLACEMENTS = [
     ("ch05_resume_state_machine.rs", "5.2-generating-with-coroutines/5.2-generating-state-machine-demo.rs"),
     ("5.3-simple-generator/", "5.2-generating-with-coroutines/"),
     ("5.3-simple-generator-state-machine-demo.rs", "5.2-generating-state-machine-demo.rs"),
-    ("ch06_callback.rs", "6.1-heater-system/6.1-heater-system-callback-demo.rs"),
-    ("ch06_heater_display.rs", "6.1-heater-system/6.1-heater-system-display-demo.rs"),
-    ("ch07_local_pool_pinned.rs", "7.2-local-pool/7.2-local-pool-pinned-demo.rs"),
-    ("ch07_runtime_builder_hooks.rs", "7.1-runtime-builder/7.1-runtime-builder-demo.rs"),
-    ("ch07_ctrl_c_shutdown.rs", "7.4-graceful-shutdown/7.4-graceful-shutdown-ctrl-c-demo.rs"),
-    ("ch08_actor_resp_channel.rs", "8.1-custom-actor/8.1-custom-actor-resp-channel-demo.rs"),
+    ("ch06_callback.rs", "6.4-user-input-via-callbacks/6.4-user-input-via-callbacks-demo.rs"),
+    ("ch06_heater_display.rs", "6.2-building-display-observer/6.2-building-display-observer-demo.rs"),
+    ("6.1-heater-system/", "6.1-basic-reactive-system-and-subjects/"),
+    ("6.1-heater-system-callback-demo.rs", "6.4-user-input-via-callbacks-demo.rs"),
+    ("6.1-heater-system-display-demo.rs", "6.2-building-display-observer-demo.rs"),
+    ("ch07_local_pool_pinned.rs", "7.2-processing-tasks-with-local-pools/7.2-processing-tasks-with-local-pools-demo.rs"),
+    ("ch07_runtime_builder_hooks.rs", "7.1-building-a-runtime/7.1-building-a-runtime-demo.rs"),
+    ("ch07_ctrl_c_shutdown.rs", "7.4-graceful-shutdowns/7.4-graceful-shutdowns-ctrl-c-demo.rs"),
+    ("7.1-runtime-builder/", "7.1-building-a-runtime/"),
+    ("7.2-local-pool/", "7.2-processing-tasks-with-local-pools/"),
+    ("7.4-graceful-shutdown/", "7.4-graceful-shutdowns/"),
+    ("ch08_actor_resp_channel.rs", "8.1-building-basic-actor/8.1-building-basic-actor-demo.rs"),
+    ("8.1-custom-actor/", "8.1-building-basic-actor/"),
     ("ch09_retry_backoff.rs", "9.5-retry-pattern/9.5-retry-pattern-backoff-demo.rs"),
     ("ch10_std_tcp_nonblocking.rs", "10.2-std-runtime/10.2-std-runtime-tcp-nonblocking-demo.rs"),
     ("ch10_noop_waker_block_on.rs", "10.2-std-runtime/10.2-std-runtime-noop-waker-demo.rs"),
@@ -155,94 +162,29 @@ def split_ch05():
 
 def split_ch06():
     ch = ROOT / "ch06_reactive_async_streams"
-    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
-    mapping = {
-        "6.1-heater-system.md": (
-            p.get("_preamble", ""),
-            p.get("1. 核心概念：观察者模式 (Observer Pattern)", ""),
-            p.get("5. 示例代码：简单的回调逻辑", ""),
-        ),
-        "6.2-data-concurrency.md": (p.get("2. 数据并发与原子操作", ""),),
-        "6.3-event-bus.md": (p.get("3. 事件总线 (Event Bus)", ""),),
-        "6.4-backpressure.md": (
-            p.get("4. 关键挑战：背压 (Backpressure)", ""),
-            p.get("总结", ""),
-            p.get("6. 配套代码说明（本仓库）", ""),
-        ),
-    }
-    for k, v in mapping.items():
-        write_section(ch, k, v)
-    write_index(
-        ch,
-        "第 6 章 — 学习笔记索引",
-        [
-            ("6.1", "6.1-heater-system.md", "6.1-heater-system"),
-            ("6.2", "6.2-data-concurrency.md", ""),
-            ("6.3", "6.3-event-bus.md", ""),
-            ("6.4", "6.4-backpressure.md", ""),
-        ],
-    )
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "6.8-summary.md" in src and "共 8 节" in src:
+        print("Ch06 already on 8-section layout, skip")
+        return
+    print("Ch06: maintain 6.1..6.8 md manually")
 
 
 def split_ch07():
     ch = ROOT / "ch07_tokio_graceful_shutdown"
-    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
-    mapping = {
-        "7.1-runtime-builder.md": (p.get("_preamble", ""), p.get("1. 核心知识点与原理", "")),
-        "7.2-local-pool.md": (p.get("2. 核心架构：Local Pool 布局", ""), p.get("3. 示例代码：使用本地池固定任务", "")),
-        "7.3-unsafe-thread-data.md": ("## 7.3 Unsafe Thread Data\n\n", "见书中线程局部与 `!Send` Future 处理。\n"),
-        "7.4-graceful-shutdown.md": (
-            p.get("4. 进阶：优雅停机 (Graceful Shutdowns)", ""),
-            p.get("5. 常见陷阱与注意事项 (Gotchas)", ""),
-            p.get("总结", ""),
-            p.get("6. 配套代码说明（本仓库）", ""),
-        ),
-    }
-    for k, v in mapping.items():
-        write_section(ch, k, v)
-    write_index(
-        ch,
-        "第 7 章 — 学习笔记索引",
-        [
-            ("7.1", "7.1-runtime-builder.md", "7.1-runtime-builder"),
-            ("7.2", "7.2-local-pool.md", "7.2-local-pool"),
-            ("7.3", "7.3-unsafe-thread-data.md", ""),
-            ("7.4", "7.4-graceful-shutdown.md", "7.4-graceful-shutdown"),
-        ],
-    )
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "7.5-summary.md" in src and "共 5 节" in src:
+        print("Ch07 already on 5-section layout, skip")
+        return
+    print("Ch07: maintain 7.1..7.5 md manually")
 
 
 def split_ch08():
     ch = ROOT / "ch08_actor_model"
-    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
-    mapping = {
-        "8.1-custom-actor.md": (
-            p.get("_preamble", ""),
-            p.get("1. 核心概念与原理", ""),
-            p.get("2. 核心架构模式", ""),
-            p.get("4. 示例代码：处理响应的消息", ""),
-        ),
-        "8.2-actor-vs-mutex.md": ("## 8.2 Actor vs Mutex\n\n", section_slice(p.get("1. 核心概念与原理", ""), "Mutex", None)),
-        "8.3-kv-store.md": ("## 8.3 KV Store with Actors\n\n", "见书中键值存储 Actor 实战。\n"),
-        "8.4-supervision.md": (
-            p.get("3. Actor 监控与监督 (Supervision)", ""),
-            p.get("5. 常见陷阱与注意事项 (Gotchas)", ""),
-            p.get("总结", ""),
-            p.get("6. 配套代码说明（本仓库）", ""),
-        ),
-    }
-    for k, v in mapping.items():
-        write_section(ch, k, v)
-    write_index(
-        ch,
-        "第 8 章 — 学习笔记索引",
-        [
-            ("8.1", "8.1-custom-actor.md", "8.1-custom-actor"),
-            ("8.2", "8.2-actor-vs-mutex.md", ""),
-            ("8.3", "8.3-kv-store.md", ""),
-            ("8.4", "8.4-supervision.md", ""),
-        ],
-    )
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "8.6-summary.md" in src and "共 6 节" in src:
+        print("Ch08 already on 6-section layout, skip")
+        return
+    print("Ch08: maintain 8.1..8.6 md manually")
 
 
 def split_ch09():

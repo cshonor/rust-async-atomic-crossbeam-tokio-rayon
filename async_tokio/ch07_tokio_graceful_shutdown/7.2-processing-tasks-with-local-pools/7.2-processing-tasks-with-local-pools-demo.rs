@@ -1,4 +1,4 @@
-//! ch07：`LocalPoolHandle` + `spawn_pinned_by_idx`（与 `async_tokio/ch07_tokio_graceful_shutdown/本章学习笔记.md` §3 对应）。
+//! §7.2：`LocalPoolHandle` + `spawn_pinned_by_idx`。
 use tokio_util::task::LocalPoolHandle;
 
 #[tokio::main]

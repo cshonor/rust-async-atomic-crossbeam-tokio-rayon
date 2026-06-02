@@ -1,4 +1,4 @@
-//! ch07：捕获 Ctrl+C 后打印收尾（需 Tokio `signal` feature）。
+//! §7.4：捕获 Ctrl+C 后打印收尾（需 Tokio `signal` feature）。
 use tokio::signal;
 
 #[tokio::main]
