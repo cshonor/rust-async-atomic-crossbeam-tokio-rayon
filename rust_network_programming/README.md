@@ -12,7 +12,7 @@
 | Stage 4 | `stage04_serde_parse` | 书 Ch4 Serde / nom 解析（[Ch04 笔记](stage04_serde_parse/notes/Ch04-数据序列化反序列化与解析-学习笔记.md)） |
 | Stage 5 | `stage05_app_protocol` | 书 Ch5 RPC/gRPC、SMTP、FTP/TFTP（[Ch05 笔记](stage05_app_protocol/notes/Ch05-应用层协议-学习笔记.md)） |
 | Stage 6 | `stage06_http_programming` | 书 Ch6 Hyper / Rocket / reqwest（[Ch06 笔记](stage06_http_programming/notes/Ch06-在互联网上进行HTTP通信-学习笔记.md)） |
-| Stage 7 | `stage07_tokio_async_net` | **Tokio 异步网络（与袋鼠书主线对齐，TOP1）** |
+| Stage 7 | `stage07_tokio_async_net` | 书 Ch7 Tokio 异步网络 **TOP1**（[Ch07 笔记](stage07_tokio_async_net/notes/Ch07-使用Tokio进行异步网络编程-学习笔记.md) · [`async_tokio/`](../async_tokio/)） |
 | Stage 8 | `stage08_network_security` | TLS / 安全加固（生产进阶） |
 | Stage 9 | `stage09_appendix_deep` | 附录：Future / 协程 / 解析器组合子等底层 |
 
