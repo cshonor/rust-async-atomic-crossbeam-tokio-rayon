@@ -1,0 +1,399 @@
+# -*- coding: utf-8 -*-
+"""Split async_tokio 本章学习笔记.md into per-section files (full content)."""
+from __future__ import annotations
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+
+PATH_REPLACEMENTS = [
+    ("ch01_reqwest_join.rs", "1.6-improving-http-request-performance/1.6-improving-http-request-performance-demo.rs"),
+    ("1.6-http-performance/", "1.6-improving-http-request-performance/"),
+    ("ch02_counter_future.rs", "2.2-futures/2.2-futures-counter-demo.rs"),
+    ("2.1-future-trait/", "2.2-futures/"),
+    ("2.1-future-trait-counter-demo.rs", "2.2-futures-counter-demo.rs"),
+    ("ch03_join_macro_flume.rs", "3.6-creating-join-macro/3.6-creating-join-macro-demo.rs"),
+    ("3.6-custom-join-macro/", "3.6-creating-join-macro/"),
+    ("3.1-async-queue/", "3.1-building-async-queue/"),
+    ("ch04_mio_poll_listener.rs", "4.5-mio-poll/4.5-mio-poll-listener-demo.rs"),
+    ("ch05_resume_state_machine.rs", "5.3-simple-generator/5.3-simple-generator-state-machine-demo.rs"),
+    ("ch06_callback.rs", "6.1-heater-system/6.1-heater-system-callback-demo.rs"),
+    ("ch06_heater_display.rs", "6.1-heater-system/6.1-heater-system-display-demo.rs"),
+    ("ch07_local_pool_pinned.rs", "7.2-local-pool/7.2-local-pool-pinned-demo.rs"),
+    ("ch07_runtime_builder_hooks.rs", "7.1-runtime-builder/7.1-runtime-builder-demo.rs"),
+    ("ch07_ctrl_c_shutdown.rs", "7.4-graceful-shutdown/7.4-graceful-shutdown-ctrl-c-demo.rs"),
+    ("ch08_actor_resp_channel.rs", "8.1-custom-actor/8.1-custom-actor-resp-channel-demo.rs"),
+    ("ch09_retry_backoff.rs", "9.5-retry-pattern/9.5-retry-pattern-backoff-demo.rs"),
+    ("ch10_std_tcp_nonblocking.rs", "10.2-std-runtime/10.2-std-runtime-tcp-nonblocking-demo.rs"),
+    ("ch10_noop_waker_block_on.rs", "10.2-std-runtime/10.2-std-runtime-noop-waker-demo.rs"),
+    ("ch11_timeout_deadlock_probe.rs", "11.3-deadlock-probe/11.3-deadlock-probe-timeout-demo.rs"),
+    ("同目录 ``demo.rs``", "各小节 `X.Y-slug/` 下 `*-stdlib-demo.rs`"),
+    ("本目录 `ch10_std_tcp_nonblocking.rs`", "`10.2-std-runtime/10.2-std-runtime-tcp-nonblocking-demo.rs`"),
+    ("本目录 `ch10_noop_waker_block_on.rs`", "`10.2-std-runtime/10.2-std-runtime-noop-waker-demo.rs`"),
+    ("3.6-custom-join-macro/3.1-async-queue-stdlib-demo.rs", "3.1-async-queue/3.1-async-queue-stdlib-demo.rs"),
+    ("4.5-mio-poll/4.1-executor-connector-stdlib-demo.rs", "4.1-executor-connector/4.1-executor-connector-stdlib-demo.rs"),
+    ("5.3-simple-generator/5.1-coroutines-intro-stdlib-demo.rs", "5.1-coroutines-intro/5.1-coroutines-intro-stdlib-demo.rs"),
+    ("9.5-retry-pattern/9.1-isolated-module-stdlib-demo.rs", "9.1-isolated-module/9.1-isolated-module-stdlib-demo.rs"),
+    ("10.2-std-runtime/10.1-basics-stdlib-demo.rs", "10.1-basics/10.1-basics-stdlib-demo.rs"),
+    ("11.3-deadlock-probe/11.1-sync-testing-stdlib-demo.rs", "11.1-sync-testing/11.1-sync-testing-stdlib-demo.rs"),
+]
+
+
+def fix_paths(text: str) -> str:
+    for old, new in PATH_REPLACEMENTS:
+        text = text.replace(old, new)
+    return text
+
+
+def split_by_h2(src: str) -> dict[str, str]:
+    parts: dict[str, str] = {}
+    key = "_preamble"
+    lines: list[str] = []
+    for line in src.splitlines(keepends=True):
+        if line.startswith("## ") and not line.startswith("### "):
+            parts[key] = "".join(lines)
+            key = line[3:].strip()
+            lines = [line]
+        else:
+            lines.append(line)
+    parts[key] = "".join(lines)
+    return parts
+
+
+def section_slice(text: str, start: str, end: str | None = None) -> str:
+    if start not in text:
+        return ""
+    i = text.index(start)
+    chunk = text[i:]
+    if end:
+        rest = chunk[len(start) :]
+        if end in rest:
+            chunk = chunk[: len(start) + rest.index(end)]
+    return chunk
+
+
+def write_section(ch: Path, fname: str, chunks: tuple[str, ...]) -> None:
+    body = fix_paths("".join(chunks)).strip()
+    if not body:
+        return
+    if not body.startswith("#"):
+        title = fname.replace(".md", "").split("-", 1)[-1].replace("-", " ").title()
+        body = f"# {title}\n\n{body}\n"
+    footer = (
+        "\n---\n\n"
+        f"> 章节索引：[本章学习笔记.md](./本章学习笔记.md) · "
+        "[本书详细目录](../本书详细目录.md)\n"
+    )
+    (ch / fname).write_text(body + footer, encoding="utf-8")
+    print("Wrote", ch.name, fname)
+
+
+def write_index(ch: Path, title: str, rows: list[tuple[str, str, str]]) -> None:
+    lines = [
+        f"# {title}\n",
+        "> **正文已拆至各小节文件**（非占位）。书目：[本书详细目录.md](../本书详细目录.md)\n",
+        "| 书 § | 笔记 | Demo |",
+        "|------|------|------|",
+    ]
+    for sec, note, demo in rows:
+        demo_cell = f"[{demo}/](./{demo}/)" if demo else "—"
+        lines.append(f"| {sec} | [{note}](./{note}) | {demo_cell} |")
+    lines.append("")
+    (ch / "本章学习笔记.md").write_text("\n".join(lines), encoding="utf-8")
+    print("index", ch.name)
+
+
+def split_ch01():
+    ch = ROOT / "ch01_async_intro"
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "1.7-summary.md" in src and "共 7 节" in src:
+        print("Ch01 already on 7-section layout, skip")
+        return
+    print("Ch01: maintain 1.1..1.7 md manually")
+
+
+def split_ch02():
+    """Ch2 uses 10 book sections; index-only 本章学习笔记 — skip overwrite if already split."""
+    ch = ROOT / "ch02_async_rust_core"
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "2.10-summary.md" in src and "共 10 节" in src:
+        print("Ch02 already on 10-section layout, skip")
+        return
+    print("Ch02: maintain 2.1..2.10 md manually; see 本章学习笔记.md index")
+
+
+def split_ch03():
+    ch = ROOT / "ch03_custom_task_queue"
+    src = (ch / "本章学习笔记.md").read_text(encoding="utf-8")
+    if "3.9-summary.md" in src and "共 9 节" in src:
+        print("Ch03 already on 9-section layout, skip")
+        return
+    print("Ch03: maintain 3.1..3.9 md manually")
+
+
+def split_ch04():
+    ch = ROOT / "ch04_network_io_runtime"
+    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
+    mapping = {
+        "4.1-executor-connector.md": (p.get("_preamble", ""), p.get("1. 核心概念：执行器与连接器 (Executors & Connectors)", "")),
+        "4.2-hyper-integration.md": (p.get("2. 集成 hyper 库实现 HTTP 访问", ""),),
+        "4.3-http-connection.md": (section_slice(p.get("2. 集成 hyper 库实现 HTTP 访问", ""), "###", None),),
+        "4.4-async-read-write.md": ("## 4.4 AsyncRead / AsyncWrite\n\n", "见书中 Tokio trait 实现小节。\n"),
+        "4.5-mio-poll.md": (p.get("3. 深入底层：使用 mio 处理底层 I/O", ""),),
+        "4.6-socket-send.md": (
+            p.get("4. 关键依赖项", ""),
+            p.get("5. 易错点与建议 (Gotchas)", ""),
+            p.get("总结", ""),
+            p.get("6. 配套代码说明（本仓库）", ""),
+        ),
+    }
+    for k, v in mapping.items():
+        write_section(ch, k, v)
+    write_index(
+        ch,
+        "第 4 章 — 学习笔记索引",
+        [
+            ("4.1", "4.1-executor-connector.md", "4.1-executor-connector"),
+            ("4.2", "4.2-hyper-integration.md", ""),
+            ("4.3", "4.3-http-connection.md", ""),
+            ("4.4", "4.4-async-read-write.md", ""),
+            ("4.5", "4.5-mio-poll.md", "4.5-mio-poll"),
+            ("4.6", "4.6-socket-send.md", ""),
+        ],
+    )
+
+
+def split_ch05():
+    ch = ROOT / "ch05_coroutines_generators"
+    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
+    mapping = {
+        "5.1-coroutines-intro.md": (p.get("_preamble", ""), p.get("1. 什么是协程？", "")),
+        "5.2-generating.md": (p.get("2. 协程的实现机制", ""),),
+        "5.3-simple-generator.md": (p.get("3. 生成器 (Generators)：弱协程", ""),),
+        "5.4-stacking.md": (p.get("4. 协程的高级应用", ""),),
+        "5.5-simulate-async.md": (p.get("5. 协程与异步的关系", ""),),
+        "5.6-testing-coroutines.md": (
+            p.get("6. 协程的测试优势", ""),
+            p.get("总结", ""),
+            p.get("7. 配套代码说明（本仓库）", ""),
+        ),
+    }
+    for k, v in mapping.items():
+        write_section(ch, k, v)
+    write_index(
+        ch,
+        "第 5 章 — 学习笔记索引",
+        [
+            ("5.1", "5.1-coroutines-intro.md", "5.1-coroutines-intro"),
+            ("5.2", "5.2-generating.md", ""),
+            ("5.3", "5.3-simple-generator.md", "5.3-simple-generator"),
+            ("5.4", "5.4-stacking.md", ""),
+            ("5.5", "5.5-simulate-async.md", ""),
+            ("5.6", "5.6-testing-coroutines.md", ""),
+        ],
+    )
+
+
+def split_ch06():
+    ch = ROOT / "ch06_reactive_async_streams"
+    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
+    mapping = {
+        "6.1-heater-system.md": (
+            p.get("_preamble", ""),
+            p.get("1. 核心概念：观察者模式 (Observer Pattern)", ""),
+            p.get("5. 示例代码：简单的回调逻辑", ""),
+        ),
+        "6.2-data-concurrency.md": (p.get("2. 数据并发与原子操作", ""),),
+        "6.3-event-bus.md": (p.get("3. 事件总线 (Event Bus)", ""),),
+        "6.4-backpressure.md": (
+            p.get("4. 关键挑战：背压 (Backpressure)", ""),
+            p.get("总结", ""),
+            p.get("6. 配套代码说明（本仓库）", ""),
+        ),
+    }
+    for k, v in mapping.items():
+        write_section(ch, k, v)
+    write_index(
+        ch,
+        "第 6 章 — 学习笔记索引",
+        [
+            ("6.1", "6.1-heater-system.md", "6.1-heater-system"),
+            ("6.2", "6.2-data-concurrency.md", ""),
+            ("6.3", "6.3-event-bus.md", ""),
+            ("6.4", "6.4-backpressure.md", ""),
+        ],
+    )
+
+
+def split_ch07():
+    ch = ROOT / "ch07_tokio_graceful_shutdown"
+    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
+    mapping = {
+        "7.1-runtime-builder.md": (p.get("_preamble", ""), p.get("1. 核心知识点与原理", "")),
+        "7.2-local-pool.md": (p.get("2. 核心架构：Local Pool 布局", ""), p.get("3. 示例代码：使用本地池固定任务", "")),
+        "7.3-unsafe-thread-data.md": ("## 7.3 Unsafe Thread Data\n\n", "见书中线程局部与 `!Send` Future 处理。\n"),
+        "7.4-graceful-shutdown.md": (
+            p.get("4. 进阶：优雅停机 (Graceful Shutdowns)", ""),
+            p.get("5. 常见陷阱与注意事项 (Gotchas)", ""),
+            p.get("总结", ""),
+            p.get("6. 配套代码说明（本仓库）", ""),
+        ),
+    }
+    for k, v in mapping.items():
+        write_section(ch, k, v)
+    write_index(
+        ch,
+        "第 7 章 — 学习笔记索引",
+        [
+            ("7.1", "7.1-runtime-builder.md", "7.1-runtime-builder"),
+            ("7.2", "7.2-local-pool.md", "7.2-local-pool"),
+            ("7.3", "7.3-unsafe-thread-data.md", ""),
+            ("7.4", "7.4-graceful-shutdown.md", "7.4-graceful-shutdown"),
+        ],
+    )
+
+
+def split_ch08():
+    ch = ROOT / "ch08_actor_model"
+    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
+    mapping = {
+        "8.1-custom-actor.md": (
+            p.get("_preamble", ""),
+            p.get("1. 核心概念与原理", ""),
+            p.get("2. 核心架构模式", ""),
+            p.get("4. 示例代码：处理响应的消息", ""),
+        ),
+        "8.2-actor-vs-mutex.md": ("## 8.2 Actor vs Mutex\n\n", section_slice(p.get("1. 核心概念与原理", ""), "Mutex", None)),
+        "8.3-kv-store.md": ("## 8.3 KV Store with Actors\n\n", "见书中键值存储 Actor 实战。\n"),
+        "8.4-supervision.md": (
+            p.get("3. Actor 监控与监督 (Supervision)", ""),
+            p.get("5. 常见陷阱与注意事项 (Gotchas)", ""),
+            p.get("总结", ""),
+            p.get("6. 配套代码说明（本仓库）", ""),
+        ),
+    }
+    for k, v in mapping.items():
+        write_section(ch, k, v)
+    write_index(
+        ch,
+        "第 8 章 — 学习笔记索引",
+        [
+            ("8.1", "8.1-custom-actor.md", "8.1-custom-actor"),
+            ("8.2", "8.2-actor-vs-mutex.md", ""),
+            ("8.3", "8.3-kv-store.md", ""),
+            ("8.4", "8.4-supervision.md", ""),
+        ],
+    )
+
+
+def split_ch09():
+    ch = ROOT / "ch09_async_design_patterns"
+    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
+    s2 = p.get("2. 核心异步模式详解", "")
+    mapping = {
+        "9.1-isolated-module.md": (p.get("_preamble", ""), p.get("1. 构建隔离模块 (Building an Isolated Module)", "")),
+        "9.2-waterfall.md": (section_slice(s2, "### 2.1", "### 2.2"),),
+        "9.3-decorator.md": (section_slice(s2, "### 2.2", "### 2.3"),),
+        "9.4-state-machine.md": (section_slice(s2, "### 2.3", "### 2.4"),),
+        "9.5-retry-pattern.md": (
+            section_slice(s2, "### 2.4", "### 2.5"),
+            p.get("3. 示例代码：重试模式逻辑", ""),
+        ),
+        "9.6-circuit-breaker.md": (
+            section_slice(s2, "### 2.5", None),
+            p.get("总结", ""),
+            p.get("4. 配套代码说明（本仓库）", ""),
+        ),
+    }
+    for k, v in mapping.items():
+        write_section(ch, k, v)
+    write_index(
+        ch,
+        "第 9 章 — 学习笔记索引",
+        [
+            ("9.1", "9.1-isolated-module.md", "9.1-isolated-module"),
+            ("9.2", "9.2-waterfall.md", ""),
+            ("9.3", "9.3-decorator.md", ""),
+            ("9.4", "9.4-state-machine.md", ""),
+            ("9.5", "9.5-retry-pattern.md", "9.5-retry-pattern"),
+            ("9.6", "9.6-circuit-breaker.md", ""),
+        ],
+    )
+
+
+def split_ch10():
+    ch = ROOT / "ch10_dependency_free_async_server"
+    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
+    mapping = {
+        "10.1-basics.md": (p.get("_preamble", ""), p.get("1. 核心目标：解密异步底层逻辑", "")),
+        "10.2-std-runtime.md": (p.get("2. 唤醒器与执行器的从零实现", ""),),
+        "10.3-waker-executor.md": (p.get("3. 核心异步原语的构建", ""),),
+        "10.4-server-architecture.md": (p.get("4. 服务器架构设计 (Server Architecture)", ""),),
+        "10.5-optimize-test.md": (p.get("5. 项目优化与测试", ""),),
+        "10.6-gotchas-summary.md": (
+            p.get("6. 常见陷阱与建议 (Gotchas)", ""),
+            p.get("总结", ""),
+            p.get("7. 配套代码说明（本仓库）", ""),
+        ),
+    }
+    for k, v in mapping.items():
+        write_section(ch, k, v)
+    write_index(
+        ch,
+        "第 10 章 — 学习笔记索引",
+        [
+            ("10.1", "10.1-basics.md", "10.1-basics"),
+            ("10.2", "10.2-std-runtime.md", "10.2-std-runtime"),
+            ("10.3", "10.3-waker-executor.md", ""),
+            ("10.4", "10.4-server-architecture.md", ""),
+            ("10.5", "10.5-optimize-test.md", ""),
+            ("10.6", "10.6-gotchas-summary.md", ""),
+        ],
+    )
+
+
+def split_ch11():
+    ch = ROOT / "ch11_async_testing_debugging"
+    p = split_by_h2(fix_paths((ch / "本章学习笔记.md").read_text(encoding="utf-8")))
+    mapping = {
+        "11.1-sync-testing.md": (p.get("_preamble", ""), section_slice(p.get("1. 核心知识点与工具", ""), "## 1.", "Mocking") or p.get("1. 核心知识点与工具", "")),
+        "11.2-async-mocking.md": ("## 11.2 Async Mocking\n\n", section_slice(p.get("1. 核心知识点与工具", ""), "Mocking", None)),
+        "11.3-deadlock-probe.md": (section_slice(p.get("1. 核心知识点与工具", ""), "死锁", None), p.get("4. 常见陷阱与建议 (Gotchas)", "")),
+        "11.4-future-polling.md": (
+            p.get("2. 细粒度的 Future 轮询测试", ""),
+            p.get("3. 示例代码：使用 mockall 模拟异步过程", ""),
+            p.get("总结", ""),
+            p.get("5. 配套代码说明（本仓库）", ""),
+        ),
+    }
+    for k, v in mapping.items():
+        write_section(ch, k, v)
+    write_index(
+        ch,
+        "第 11 章 — 学习笔记索引",
+        [
+            ("11.1", "11.1-sync-testing.md", "11.1-sync-testing"),
+            ("11.2", "11.2-async-mocking.md", ""),
+            ("11.3", "11.3-deadlock-probe.md", "11.3-deadlock-probe"),
+            ("11.4", "11.4-future-polling.md", ""),
+        ],
+    )
+
+
+def main() -> None:
+    split_ch01()
+    split_ch02()
+    split_ch03()
+    split_ch04()
+    split_ch05()
+    split_ch06()
+    split_ch07()
+    split_ch08()
+    split_ch09()
+    split_ch10()
+    split_ch11()
+    print("Done.")
+
+
+if __name__ == "__main__":
+    main()
