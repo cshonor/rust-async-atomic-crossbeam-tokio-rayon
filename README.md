@@ -27,7 +27,7 @@
 > **RFR 定位**：原理向进阶书，不是语法刚过完就读的对象；详见 [`RFR/学习路径与章节对照.md`](RFR/学习路径与章节对照.md)。
 
 1. **基础语法** → **《Effective Rust》**（最佳实践；仓库外）。  
-2. **`async_tokio/` + `atomic/`** — 见下节 **贯通计划**（并发两条线，建议螺旋式对照，而非各读各的）。  
+2. **`async_tokio/` + `atomic/`** — 见下节：**以双向跳转为主**（概念表），阶段 0～7 可选。  
 3. **`atomic/crossbeam/`、`atomic/rayon/`** — 通道与数据并行（可在 async Ch08 / atomic Ch05 之后）。  
 4. **`rust_network_programming/`** — Socket / 协议 / 工程化网络（与 async Ch04、Ch01 §1.6 衔接）。  
 5. **`RFR/`** — **问题驱动查阅** → **系统通读**（有 TCP / async / 锁实战后）。  
@@ -44,15 +44,79 @@
 
 一句话：**async 解决「等 I/O 时干什么」；atomic/锁 解决「多个执行流碰同一块数据怎么办」。** Tokio 程序里两者天天见面（`tokio::sync::Mutex`、`Arc`、响应式里的 `Atomic*`、Actor 与通道等）。
 
-#### 先学谁？
+### 推荐用法：两文件夹**随时双向跳转**（主模式）
+
+> **不必**先把 `async_tokio/` 或 `atomic/` 整本读完。你在**当前这一节**卡住某个词，就去**另一个文件夹**查同一概念的原文和代码，看完再跳回来继续。
+
+**怎么开头（选一个即可）：**
+
+| 你的状态 | 从哪读 | 代码从哪跑 |
+|----------|--------|------------|
+| 想先建立异步直觉 | [async Ch01 §1.1](async_tokio/ch01_async_intro/1.1-what-is-async.md) → §1.6 | `1.1-what-is-async/` · `1.6-improving-http-request-performance/` |
+| 一遇到锁 / `Send` 就懵 | [atomic Chapter-01](atomic/Chapter-01-Rust-Concurrency-Basics/本章学习笔记.md) + [互斥锁贯通笔记](atomic/互斥锁与锁体系-贯通笔记.md) | `cargo build --manifest-path atomic/Cargo.toml` · `use_mutex.rs` |
+| 已在学某一节（如 Ch11 竞态） | **就停在该节 `.md`**，不懂的词查下表 | **只跑当前节** `X.Y-slug/` 里那一个 demo |
+
+**固定两个书签（横跳时用）：**
+
+- async：[本书详细目录.md](async_tokio/本书详细目录.md) · 各章 `本章学习笔记.md`
+- atomic：[README-学习区.md](atomic/README-学习区.md) · [互斥锁与锁体系-贯通笔记.md](atomic/互斥锁与锁体系-贯通笔记.md) · [Atomics与内存序-贯通笔记.md](atomic/Atomics与内存序-贯通笔记.md)
+
+**阅读循环：**
+
+```
+当前节的 X.Y-slug.md
+    → 遇到不懂的概念
+        → 查下方「概念双向跳转表」→ 打开 atomic/ 或 async_tokio/ 对应路径
+            → 跑那一侧的 demo / .rs
+    → 跳回原节继续
+```
+
+#### 概念双向跳转表（按名词查，不必记章号）
+
+| 你在 async 里看到 / 不懂的 | 先去 atomic | atomic 代码 / 笔记 | 弄懂后回 async |
+|---------------------------|-------------|-------------------|----------------|
+| 线程、进程、一连接一线程 | [Chapter-01](atomic/Chapter-01-Rust-Concurrency-Basics/本章学习笔记.md) | `usejoin.rs`、`thread_*.rs` | Ch01 §1.2–1.3 |
+| `Mutex`、`lock().await`、Guard | [互斥锁贯通笔记](atomic/互斥锁与锁体系-贯通笔记.md) | `use_mutex.rs`、`use_mutex_guard_lifetime.rs` | Ch02 §2.6–2.7 |
+| `Send` / `Sync`、`!Send` Future | Chapter-01 | `use_send_sync.rs` | Ch02、Ch07 本地池 |
+| `Arc`、共享所有权 | Chapter-01、06 说明 | `use_rc_arc.rs` | 全书各处 |
+| `Atomic*`、`compare_exchange`、内存序 | [Atomics与内存序贯通笔记](atomic/Atomics与内存序-贯通笔记.md) · Ch02–03 | `use_atomic.rs`、`use_seqcst.rs` | **Ch06** 响应式 |
+| `mpsc`、`oneshot`、Actor | [Chapter-05](atomic/Chapter-05-Channels/本章学习笔记.md) | `one_shot_channel.rs` | **Ch08** |
+| Actor vs Mutex、吞吐 | 互斥锁贯通笔记 | `use_mutex.rs` | Ch08 §8.2 |
+| 任务队列、窃取 | Chapter-04 自旋 | `spin_lock.rs` | Ch03 |
+| 熔断、`AtomicBool` 计数 | Chapter-02 | `use_atomic.rs` | Ch09 §9.6 |
+| 死锁、`timeout` | 互斥锁贯通笔记 §死锁 | `use_mutex.rs` | Ch11 §11.3 |
+| 竞态、多线程测试 | Ch02–03 | `use_atomic.rs` | Ch11 §11.4 |
+| 有界通道、背压 | Chapter-05 | 通道笔记 | Ch11 §11.5 |
+| `poll` / Waker / 手写运行时 | Ch08 OS 原语（概念） | — | Ch02、**Ch10** §10.2 |
+
+| 你在 atomic 里看到 / 不懂的 | 先去 async | 弄懂后回 atomic |
+|---------------------------|------------|-----------------|
+| 标准库 `Mutex` 为何 async 里常换 Tokio 版 | Ch02 §2.7 · Ch07 | 理解持锁跨 `await` 问题 |
+| 原子在工程里怎么用 | **Ch06** 加热器 | 回到 Ch02 内存序 |
+| 通道在架构里怎么用 | **Ch08** Actor | 回到 Ch05 实现细节 |
+| futex / 阻塞底层 | Ch10 std 运行时 · Ch04 mio | 回到 Ch08 |
+
+#### 代码怎么跑（两文件夹不一样）
+
+| 位置 | 怎么跑 | 说明 |
+|------|--------|------|
+| **`atomic/`** | `cargo build --manifest-path atomic/Cargo.toml` | 源码在 `Chapter-*/` 下 `.rs`，经 `study_atomic` 模块引入；见下文模块索引 |
+| **`async_tokio/`** | 每节 `X.Y-slug/*-demo.rs` 多为**单文件** | 需自建带 `tokio` 的 crate 的 `[[example]]`，或拷入 examples；见 [async_tokio/README.md](async_tokio/README.md) |
+| **横跳时** | **只跑与当前概念相关的一个 demo** | 不必每节文件夹都跑；笔记顶部的 `> Demo:` 行即入口 |
+
+部分 async demo 为批量生成的**教学占位**（仅 `println!`）；带完整逻辑的优先跑（如 `*-join-demo.rs`、`*-timeout-demo.rs`、`*-actor-demo.rs`）。
+
+---
+
+#### 先学谁？（可选路线，非必须线性）
 
 | 顺序 | 适合 | 说明 |
 |------|------|------|
-| **先 async → 再 atomic** | 尽快写 Tokio / Web | 正反馈快；读到 Ch06–08 时建议按下面表回跳 atomic |
-| **先 atomic → 再 async** | 想搞懂再写、偏面试/底层 | 本仓库早期 README 默认此序 |
-| **螺旋贯通**（推荐） | 你现在这种双文件夹仓库 | 大方向先 async，到「锁/原子/通道」节点插入 atomic，再回 async |
+| **先 async → 再 atomic** | 尽快写 Tokio / Web | 正反馈快；**卡住就用上表跳 atomic** |
+| **先 atomic → 再 async** | 想搞懂再写、偏面试/底层 | 锁与原子打底后再读 Tokio |
+| **双向跳转**（**推荐**） | 本仓库双文件夹 | **不按章号死磕**；当前节 + 概念表横跳 |
 
-下面 **阶段 0～7** 按螺旋贯通编写（约 8～12 周，可伸缩）。每步：读 async 该章索引 → 各节 `.md` → 进 `X.Y-slug/` 跑 demo；对照表跳到 atomic 对应章。
+下面 **阶段 0～7** 是**可选**的「第一轮系统过一遍」提纲（约 8～12 周）；日常学习以 **概念表横跳** 为主即可。
 
 ---
 
@@ -140,7 +204,7 @@
 
 ---
 
-#### 章节对照跳转表（学到 async 某章时查 atomic）
+#### 章节对照跳转表（按 async **章**粗查；细查用上文**概念表**）
 
 | async 章 | 建议同步或回看 atomic |
 |----------|------------------------|
@@ -156,11 +220,11 @@
 **async 全书索引**：[async_tokio/本书详细目录.md](async_tokio/本书详细目录.md) · [章节与小节对照表.md](async_tokio/章节与小节对照表.md)  
 **atomic 全书索引**：[atomic/全书目录-与实体书一致.md](atomic/全书目录-与实体书一致.md) · [atomic/README-学习区.md](atomic/README-学习区.md)
 
-#### 每周动手习惯
+#### 每周动手习惯（横跳版）
 
-1. 打开该章 **`本章学习笔记.md`** → 逐节读 **`X.Y-slug.md`** → 进入 **`X.Y-slug/`** 跑 demo。  
-2. 用上表跳到 atomic 对应章：`cargo build --manifest-path atomic/Cargo.toml`。  
-3. 可选：在节末写一句「本节 async 用到了 atomic 的什么」，方便复习。
+1. **只开当前一节** `X.Y-slug.md`；不懂的词 → **概念双向跳转表**。  
+2. **只跑一个**对应该概念的 demo（async 侧 `X.Y-slug/`，或 atomic 侧 `.rs`）。  
+3. 跳回原节继续；可选在节末写一句「本节用到了另一边的什么」。
 
 ---
 
