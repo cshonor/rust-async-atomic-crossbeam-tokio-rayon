@@ -17,6 +17,7 @@
 | **LLVM IR 与《Learn LLVM 17》** | `llvm_insight/` | **Part 01–04** 章节目录 + **`ir_samples/`** 归档约定；根下 **`llvm_insight_lab`** 小 crate 用于 **`--emit=llvm-ir`**。总览见 `llvm_insight/README.md`，取舍见 `llvm_insight/Learn-LLVM-17-学习取舍.md`。 |
 | **Linux 系统编程（TLPI）** | `TLPI/` | 《The Linux Programming Interface》**1～64 章**独立目录，每章 `notes.md` + 进度表；与线程/futex/epoll/socket 对照见 `TLPI/README.md`。 |
 | **进阶 Rust（RFR）** | `RFR/` | 《Rust for Rustaceans》**1～13 章**笔记（非 crate）；**建议在 network/async/locks 实战后再系统通读**，阶段内按需查阅见 [`RFR/学习路径与章节对照.md`](RFR/学习路径与章节对照.md)。 |
+| **Rustonomicon（死灵书）** | `Rust_Nomicon/` | **Nightly / Stable 两分仓**：各 `notes.md` + `src/01～11` 章节源码；见 [`Rust_Nomicon/README.md`](Rust_Nomicon/README.md)。 |
 
 ---
 
