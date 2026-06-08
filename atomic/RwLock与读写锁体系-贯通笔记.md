@@ -12,7 +12,7 @@
 |----|--------|------|
 | 1 | `Chapter-01-Rust-Concurrency-Basics` | `RwLock<T>` 用法、与 `RefCell` 类比 |
 | 7 | `Chapter-07-Processors` | **缓存行、假共享**（影响锁性能，非 RwLock API） |
-| 9 | `Chapter-09-Custom-Locks` | **写优先** `RwLock` 状态机（见 [本章学习笔记.md](./Chapter-09-Custom-Locks/本章学习笔记.md)） |
+| 9 | `Chapter-09-Custom-Locks` | [9.3.2 写优先 RwLock](./Chapter-09-Custom-Locks/9.3.2-writer-starvation-state-machine.md) |
 
 ---
 
