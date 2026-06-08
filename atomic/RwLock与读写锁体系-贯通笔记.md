@@ -93,7 +93,7 @@
 1. 仅当 **`s % 2 == 0`** 时 CAS `s + 2` 加入。  
 2. 若 **`s % 2 == 1`** 或已是 `MAX` → **wait** 在 `state` 上。
 
-完整代码骨架见：**[Chapter-09-Custom-Locks/本章学习笔记.md](./Chapter-09-Custom-Locks/本章学习笔记.md)**（依赖 `atomic_wait`，与书一致）。
+完整代码骨架见：**[9.3.2-writer-starvation-state-machine.md](./Chapter-09-Custom-Locks/9.3.2-writer-starvation-state-machine.md)**（依赖 `atomic_wait`，与书一致）。
 
 ---
 
