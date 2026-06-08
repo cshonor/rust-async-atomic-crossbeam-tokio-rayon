@@ -7,7 +7,8 @@
 | 文档 | 说明 |
 |------|------|
 | **[本章学习笔记.md](./本章学习笔记.md)** | **索引 + 整体脉络**、学习路径、Demo 一览 |
-| **[3.3-memory-order-options.md](./3.3-memory-order-options.md)** | 五种 Ordering **对照表 + 场景速查** |
+| **[3.3-memory-order-options.md](./3.3-memory-order-options.md)** | 索引；子节 **3.3.1–3.3.5** |
+| **[3.3.5-ordering-compare-select.md](./3.3.5-ordering-compare-select.md)** | 五种 Ordering **对照表 + 场景速查** |
 | **[Atomics与内存序-贯通笔记.md](../Atomics与内存序-贯通笔记.md)** | 第 2～3 章合一（普通 vs 原子、API、Ordering、规范） |
 
 ## 阅读顺序
