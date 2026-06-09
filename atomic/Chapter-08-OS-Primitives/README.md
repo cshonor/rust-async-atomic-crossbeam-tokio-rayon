@@ -19,7 +19,7 @@
 | 主题 | 章节 |
 |------|------|
 | **OS 原语是什么** | **第 8 章（本章）** |
-| **Condvar 怎么写** | **第 1 章 §1.8** + [1.8-parking-condvar-demo.rs](../Chapter-01-Rust-Concurrency-Basics/1.8-parking-condvar/1.8-parking-condvar-demo.rs) |
+| **Condvar 怎么写** | **第 1 章 §1.8** + [1.8-parking-condvar-demo.rs](../Chapter-01-Rust-Concurrency-Basics/1.8-parking-condvar/code/1.8-parking-condvar-demo.rs) |
 | **虚假唤醒 / 惊群 / 手写 wait** | **第 1 + 9 章** |
 
 ## 下一章
