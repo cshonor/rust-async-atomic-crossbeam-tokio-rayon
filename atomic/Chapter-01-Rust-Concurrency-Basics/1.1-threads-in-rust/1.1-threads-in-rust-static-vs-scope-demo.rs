@@ -3,10 +3,10 @@ use std::thread;
 
 pub fn main() {
     demo_spawn_move_fix();
-    demo_scope_borrow_local();
+    demo_safe_scope_borrow();
 }
 
-/// `thread::spawn`：不能捕获 `&local`（非 `'static`）→ 须 **`move`** 拿所有权。
+/// `thread::spawn`：不能借局部引用 → 须 **`move`** 拿所有权。
 pub fn demo_spawn_move_fix() {
     let local = String::from("hello");
     let h = thread::spawn(move || {
@@ -15,24 +15,26 @@ pub fn demo_spawn_move_fix() {
     h.join().unwrap();
 }
 
-/// `thread::scope`：可**借用 scope 外**的栈上数据（`F: 'scope`，不要 `'static`）。
-pub fn demo_scope_borrow_local() {
-    let local = String::from("hello"); // 定义在 scope **外**，子线程可借
-    thread::scope(|s| {
-        s.spawn(|| {
-            println!("scope (borrow): {local}");
-        })
-        .join()
-        .unwrap();
+/// `thread::scope`：阻塞到子线程全结束，函数内局部变量可借（`F: 'scope`）。
+pub fn demo_safe_scope_borrow() {
+    let s = String::from("局部变量");
+    thread::scope(|scope| {
+        scope
+            .spawn(|| println!("scope (borrow): {s}"))
+            .join()
+            .unwrap();
     });
+    // scope 返回后 s 才随栈帧销毁
 }
 
-// 取消注释以下函数可复现编译错误（`F` 不满足 `'static`）：
+// 取消注释 → 编译错误：`create_thread` 返回后 s 已 drop，F 不满足 'static
 //
-// pub fn demo_spawn_borrow_fails() {
-//     let local = String::from("hello");
-//     let r = &local;
-//     let _h = thread::spawn(move || {
-//         println!("{r}"); // ❌ 闭包含 &'a，不是 'static
-//     });
+// fn create_thread() {
+//     let s = String::from("仅存活于本函数");
+//     let _h = thread::spawn(|| println!("{s}"));
+// }
+//
+// pub fn demo_create_thread_would_fail() {
+//     create_thread();
+//     thread::sleep(std::time::Duration::from_millis(100));
 // }
