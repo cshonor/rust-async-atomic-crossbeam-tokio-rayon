@@ -21,6 +21,9 @@ pub mod usejoin_panic;
 #[path = "1.1-threads-in-rust/1.1-threads-in-rust-static-vs-scope-demo.rs"]
 pub mod use_static_vs_scope;
 
+#[path = "1.1-threads-in-rust/1.1-threads-in-rust-fnonce-demo.rs"]
+pub mod use_fnonce;
+
 #[path = "1.2-scoped-threads/1.2-scoped-threads-demo.rs"]
 pub mod usescope;
 
