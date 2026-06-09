@@ -26,7 +26,10 @@ pub fn main() {
     println!("FnOnce stable demos OK");
 }
 
-// --- nightly 专属（勿加入 stable lib 编译）---
+// --- nightly：FuncObj / FuncObj2 手写 impl（见 1.1.5 §6.2）---
+//
+// impl FnOnce<()> for FuncObj { type Output = i32; … }      // || 666
+// impl FnOnce<(i32,)> for FuncObj2 { type Output = String; … } // |x| x.to_string()
 //
 // #![feature(fn_traits)]
 // #![feature(unboxed_closures)]
