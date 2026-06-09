@@ -89,7 +89,7 @@ stream.set_read_timeout(Some(Duration::from_secs(5)))?;
 - 还可设置 **`set_write_timeout`**、**`set_read_timeout`** 在已连接的流上。  
 - 连接阶段超时需配合非阻塞 + `connect` 或第三方 crate；书上以读超时为主。
 
-**对照**：[`atomic/Chapter-01`](../../../atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust.md) 线程模型 · 异步版见 [stage07](../../stage07_tokio_async_net/README.md)。
+**对照**：[`atomic/Chapter-01`](../../../atomic/Chapter-01-Rust-Concurrency-Basics/1.1-threads-in-rust/1.1-threads-in-rust.md) 线程模型 · 异步版见 [stage07](../../stage07_tokio_async_net/README.md)。
 
 ---
 

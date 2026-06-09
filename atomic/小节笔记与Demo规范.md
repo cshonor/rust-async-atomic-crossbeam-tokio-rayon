@@ -7,7 +7,7 @@
 | 文件 | 作用 |
 |------|------|
 | `本章学习笔记.md` | **章索引表**（书 §1.1～1.9 → 笔记 → demo） |
-| `1.Y-english-slug.md` | **该节正文**（标题用 `## 1.Y …`，与书编号一致） |
+| `1.Y-english-slug/1.Y-english-slug.md` | **该节索引**；子笔记 `1.Y.Z-*.md` 同目录（标题用 `## 1.Y …`，与书编号一致） |
 | `1.Y-english-slug/*.rs` | Demo；由章根 `mod.rs` 用 `#[path = "..."]` 挂接 |
 
 **唯一编号**：书 § = 文件名前缀 = 代码目录名。例如书 §1.7 → `1.7-mutex-rwlock.md` + `1.7-mutex-rwlock/`。
@@ -20,14 +20,17 @@
 
 ```
 Chapter-01-Rust-Concurrency-Basics/
-├── 本章学习笔记.md              ← 索引表
-├── 1.1-threads-in-rust.md       ← §1.1 正文
+├── 本章学习笔记.md
+├── mod.rs
 ├── 1.1-threads-in-rust/
+│   ├── 1.1-threads-in-rust.md   ← §1.1 索引
+│   ├── 1.1.1-spawn-join-basics.md
 │   └── 1.1-threads-in-rust-join-demo.rs
-├── 1.7-mutex-rwlock.md
 ├── 1.7-mutex-rwlock/
+│   ├── 1.7-mutex-rwlock.md
+│   ├── 1.7.1-mutex-motivation.md
 │   └── 1.7-mutex-rwlock-mutex-demo.rs
-└── mod.rs
+└── …（§1.2～1.9 同结构：每节一文件夹，索引 + 子笔记 + demo）
 ```
 
 ---

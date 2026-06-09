@@ -1,4 +1,4 @@
-//! 第一章 — 书 §1.1～1.9 · 笔记 `1.Y-slug.md` · 代码 `1.Y-slug/*.rs`
+//! 第一章 — 书 §1.1～1.9 · 每节一目录 `1.Y-slug/`（索引 + 子笔记 + demo）
 
 #[path = "1.1-threads-in-rust/1.1-threads-in-rust-move-closure-demo.rs"]
 pub mod move_closure;

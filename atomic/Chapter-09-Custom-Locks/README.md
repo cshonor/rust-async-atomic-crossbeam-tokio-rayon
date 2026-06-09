@@ -20,7 +20,7 @@
 
 - [第 4 章 自旋锁](../Chapter-04-Spin-Locks/本章学习笔记.md)  
 - [第 8 章 OS 原语](../Chapter-08-OS-Primitives/本章学习笔记.md)  
-- [第 1 章 Mutex/Condvar/RwLock 用法](../Chapter-01-Rust-Concurrency-Basics/1.7-mutex-rwlock.md)
+- [第 1 章 Mutex/Condvar/RwLock 用法](../Chapter-01-Rust-Concurrency-Basics/1.7-mutex-rwlock/1.7-mutex-rwlock.md)
 
 ## 说明
 
