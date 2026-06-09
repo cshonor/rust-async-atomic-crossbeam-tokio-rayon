@@ -15,6 +15,9 @@ pub mod usejoin;
 #[path = "1.1-threads-in-rust/1.1-threads-in-rust-return-demo.rs"]
 pub mod userecall;
 
+#[path = "1.1-threads-in-rust/1.1-threads-in-rust-join-panic-demo.rs"]
+pub mod usejoin_panic;
+
 #[path = "1.2-scoped-threads/1.2-scoped-threads-demo.rs"]
 pub mod usescope;
 
